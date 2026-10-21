@@ -1,0 +1,125 @@
+/* Right-hand "Create view" / "Save edits" pane. Measured from the real Ads Manager screenshots (1 design px = 1.125 screenshot px).
+   Everything is scoped under .fid-view.  Structure (same family as the Compare pane):
+     .fid-view (light-blue frame)  >  .fid-view-panel (white panel)  >  .fid-view-scroll (outer scroll: the whole panel scrolls a little)
+       >  .fid-view-head (title + close)  +  .fid-view-body (own scroll area)  >  .fid-view-in (content)  +  .fid-view-foot (Save)  +  .fid-view-tail */
+
+.fid-view { --fw: 480; --fw2: 510; --fw3: 590; flex: none; display: flex; min-height: 0; padding: 0 4px 4px 8px; background: #f1f4f7; color: #1c2b33; }
+.fid-view *, .fid-view *::before, .fid-view *::after { box-sizing: border-box; }
+
+.fid-view-panel {
+  position: relative; display: flex; flex-direction: column; flex: none; width: 382.2px; min-height: 0;
+  background: #fff; border-radius: 0 8px 8px 8px; box-shadow: -1px 1px 0 #e2e5e8, -.7px .7px 4px .7px rgba(0, 0, 0, .07); overflow: hidden;
+  /* the real pane only casts its shadow to the left and below (flat frame above and to the right of it) */
+  clip-path: inset(0 0 -10px -10px round 0 8px 0 0);
+}
+.fid-view-scroll { flex: 1 1 auto; display: flex; flex-direction: column; min-height: 0; overflow-x: hidden; overflow-y: auto; }
+
+/* the two scrollbars (the whole pane and the settings area): 17 px wide, light track, grey pill thumb, small triangle buttons */
+.fid-view-scroll::-webkit-scrollbar, .fid-view-body::-webkit-scrollbar { width: 17px; height: 17px; background: #fcfcfc; }
+.fid-view-scroll::-webkit-scrollbar-track, .fid-view-body::-webkit-scrollbar-track { background: #fcfcfc; }
+.fid-view-scroll::-webkit-scrollbar-thumb, .fid-view-body::-webkit-scrollbar-thumb { border: 3.6px solid transparent; border-radius: 10px; background: #8b8b8b; background-clip: padding-box; min-height: 40px; }
+.fid-view-scroll::-webkit-scrollbar-thumb:hover, .fid-view-body::-webkit-scrollbar-thumb:hover { background-color: #6d6d6d; background-clip: padding-box; }
+.fid-view-scroll::-webkit-scrollbar-thumb:active, .fid-view-body::-webkit-scrollbar-thumb:active { background-color: #505050; background-clip: padding-box; }
+.fid-view-scroll::-webkit-scrollbar-button:single-button, .fid-view-body::-webkit-scrollbar-button:single-button { display: block; width: 17px; height: 17px; background-color: #fcfcfc; background-repeat: no-repeat; background-size: 8px 6.2px; }
+.fid-view-scroll::-webkit-scrollbar-button:vertical:start:decrement, .fid-view-body::-webkit-scrollbar-button:vertical:start:decrement { background-position: 50% 7px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='6.2'%3E%3Cpath d='M4 .7L7.4 5.5H.6z' fill='%238b8b8b' stroke='%238b8b8b' stroke-width='1' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.fid-view-scroll::-webkit-scrollbar-button:vertical:end:increment, .fid-view-body::-webkit-scrollbar-button:vertical:end:increment { background-position: 50% 3.5px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='6.2'%3E%3Cpath d='M.6 .7H7.4L4 5.5z' fill='%238b8b8b' stroke='%238b8b8b' stroke-width='1' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.fid-view-scroll::-webkit-scrollbar-button:vertical:start:increment, .fid-view-body::-webkit-scrollbar-button:vertical:start:increment,
+.fid-view-scroll::-webkit-scrollbar-button:vertical:end:decrement, .fid-view-body::-webkit-scrollbar-button:vertical:end:decrement { display: none; }
+
+/* header: 57.8 px high, title at the left, close glyph at the right; a soft shadow shows under it once the settings are scrolled */
+.fid-view-head { position: relative; z-index: 2; flex: none; height: 57.8px; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 0 17.4px 0 17.8px; background: #fff; }
+.fid-view-head::after { content: ''; position: absolute; left: 0; right: 0; top: 100%; height: 6.7px; opacity: 0; transition: opacity .12s; pointer-events: none;
+  background: linear-gradient(rgba(0, 0, 0, .07), rgba(0, 0, 0, .063) 6.7%, rgba(0, 0, 0, .031) 20%, rgba(0, 0, 0, .024) 33%, rgba(0, 0, 0, .012) 46.7%, rgba(0, 0, 0, .008) 60%, rgba(0, 0, 0, .004) 73%, rgba(0, 0, 0, 0)); }
+.fid-view-head.sh::after { opacity: 1; }
+.fid-view-head h3 { margin: 0; min-width: 0; font-size: 17.8px; font-weight: 700; line-height: 24px; color: #1c2b33; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fid-view-x { flex: none; width: 44.4px; height: 40px; padding: 0; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 5.5px; background: none; color: #1c2b33; }
+.fid-view-x:hover { background: #edf0f2; }
+.fid-view-x:active { background: #e2e6e9; }
+.fid-view-x:focus-visible { outline: 2px solid #0a78be; outline-offset: 1px; }
+.fid-view-x svg { display: block; position: relative; top: 1.2px; }
+
+/* the settings area (own scrollbar, right next to the outer one) */
+.fid-view-body { flex: 0 0 calc(100% - 128.9px); min-height: 0; overflow-x: hidden; overflow-y: auto; background: #fff; }
+.fid-view-in { border-top: 1px solid #cbd2d9; padding: 0 17.8px 5.4px; }
+
+/* labelled fields */
+.fid-view-f { display: block; margin: 0; }
+.fid-view-lbl { display: flex; align-items: flex-start; gap: 6px; height: 35.3px; padding-top: 8.5px; font-size: 16px; font-weight: 700; line-height: 22.4px; color: #1c2b33; }
+.fid-view-f:first-child .fid-view-lbl { height: 36.2px; }
+.fid-view-f:nth-child(n+2) .fid-view-lbl { padding-top: 7.6px; }
+.fid-view-f:nth-child(3) .fid-view-lbl { height: 34.4px; }
+.fid-view-lbl .fid-view-info { margin-top: 4px; color: #6b757a; }
+.fid-view-inp { display: flex; align-items: center; gap: 8.9px; height: 40px; padding: 0 12.4px 0 13.3px; border: 1px solid #cbd2d9; border-radius: 5.5px; background: #fff; cursor: text; }
+.fid-view-inp:hover { border-color: #a7b3bf; }
+.fid-view-inp:focus-within { border-color: #0a78be; box-shadow: 0 0 0 1px #0a78be; }
+.fid-view-inp input { font-weight: var(--fw); flex: 1 1 auto; min-width: 0; height: 100%; padding: 0; border: 0; outline: 0; background: transparent; font-size: 16px; letter-spacing: -.1px; line-height: 20px; color: #1c2b33; }
+.fid-view-inp input::placeholder { color: #6b757a; opacity: 1; }
+.fid-view-inp em { font-weight: var(--fw); flex: none; font-style: normal; font-size: 16px; line-height: 20px; color: #6b757a; white-space: nowrap; }
+.fid-view-sel { position: relative; display: block; }
+.fid-view-sel select { font-weight: var(--fw2); display: block; width: 100%; height: 40px; padding: 0 40px 0 13.3px; border: 1px solid #cbd2d9; border-radius: 5.5px; background: #fff; font-size: 16px; letter-spacing: -.1px; line-height: 38px; color: #1c2b33; appearance: none; -webkit-appearance: none; cursor: pointer; text-overflow: ellipsis; }
+.fid-view-sel select:hover { border-color: #a7b3bf; }
+.fid-view-sel select:focus-visible { outline: 0; border-color: #0a78be; box-shadow: 0 0 0 1px #0a78be; }
+.fid-view-selcaret { position: absolute; right: 15px; top: 50%; margin-top: -4.45px; pointer-events: none; color: #1c2b33; }
+
+.fid-view-hr { height: 1px; margin: 8.9px 0 15.6px; background: #cbd2d9; }
+.fid-view-h { margin: 0; font-size: 18.4px; font-weight: 670; line-height: 24px; color: #1c2b33; }
+.fid-view-p { font-weight: var(--fw2); margin: 0; font-size: 16px; letter-spacing: -.1px; line-height: 22.4px; color: #1c2b33; }
+
+/* a setting: bold label + switch */
+.fid-view-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; height: 41.8px; }
+.fid-view-row b { min-width: 0; font-size: 17.4px; font-weight: 660; letter-spacing: -.15px; line-height: 22.4px; color: #1c2b33; }
+
+.fid-view-sw { position: relative; flex: none; display: block; width: 41.8px; height: 24px; padding: 0; border: 1px solid #cbd2d9; border-radius: 12px; background: #fff; }
+.fid-view-sw i { position: absolute; top: -.1px; left: 0; display: block; width: 22.3px; height: 22.3px; border-radius: 50%; background: #8a949b; transition: left .12s, background-color .12s; }
+.fid-view-sw.on { background: #e1edf7; }
+.fid-view-sw.on i { left: 17.5px; background: #0a78be; }
+.fid-view-sw:hover:not(.on) { background: #f1f4f7; }
+.fid-view-sw:focus-visible { outline: 2px solid #0a78be; outline-offset: 2px; }
+
+/* "+ Add" rows */
+.fid-view-add { font-weight: var(--fw3); display: flex; align-items: center; gap: 10.8px; height: 40px; padding: 0 15.5px; border: 0; border-radius: 5.5px; background: none; font-size: 16px; line-height: 22.4px; color: #1c2b33; white-space: nowrap; }
+.fid-view-add:hover:not(:disabled) { background: #edf0f2; }
+.fid-view-add:focus-visible { outline: 2px solid #0a78be; outline-offset: -2px; }
+.fid-view-add:disabled { color: #8a9094; cursor: default; }
+.fid-view-add svg { flex: none; display: block; }
+
+/* current filters (chips above "+ Add") */
+.fid-view-chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 0 6px; }
+.fid-view-chip { display: inline-flex; align-items: center; gap: 6px; max-width: 100%; height: 28px; padding: 0 10px; border: 1px solid #cbd2d9; border-radius: 14px; background: #f1f4f7; font-size: 14px; color: #1c2b33; }
+.fid-view-chip > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fid-view-chip button { flex: none; width: 18px; height: 18px; padding: 0; border: 0; border-radius: 50%; background: none; font-size: 16px; line-height: 16px; color: #1c2b33; }
+.fid-view-chip button:hover { background: #dfe3e6; }
+
+/* dropdown-looking buttons (display only) */
+.fid-view-line { display: flex; gap: 8.9px; }
+.fid-view-line + .fid-view-line { margin-top: 8.9px; }
+.fid-view-btn { font-weight: var(--fw3); position: relative; flex: none; display: flex; align-items: center; height: 40px; padding: 0 0 0 11.6px; border: 1px solid #a7b3bf; border-radius: 5.5px; background: #fff; font-size: 16px; line-height: 20px; color: #1c2b33; white-space: nowrap; text-align: left; }
+.fid-view-btn.grow { flex: 1 1 0; min-width: 0; padding-right: 33px; }
+.fid-view-btn.sq { justify-content: center; width: 44.4px; padding: 0; }
+.fid-view-btn:hover:not(:disabled) { background: #edf0f2; }
+.fid-view-btn:disabled { color: #8a9094; border-color: #cbd2d9; cursor: default; }
+.fid-view-btn:disabled .fid-view-gl { opacity: .55; }
+.fid-view-btn:focus-visible { outline: 2px solid #0a78be; outline-offset: 1px; }
+.fid-view-btn > span:not(.fid-view-gl) { min-width: 0; overflow: hidden; text-overflow: ellipsis; margin-left: 7.1px; }
+.fid-view-btn.bd > span:not(.fid-view-gl) { margin-left: 9.5px; }
+.fid-view-btn .fid-view-caret { position: absolute; right: 15px; top: 50%; margin-top: -4.45px; }
+.fid-view-gl { flex: none; display: block; background: currentColor; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; }
+
+/* footer: Save button(s) at the right; a soft shadow above it while more settings are hidden below */
+.fid-view-foot { position: relative; z-index: 2; flex: none; display: flex; align-items: flex-start; justify-content: flex-end; gap: 8.9px; height: 71.1px; padding: 13.3px 17.8px 0; background: #fff; }
+.fid-view-foot::before { content: ''; position: absolute; left: 0; right: 0; bottom: 100%; height: 6.7px; opacity: 0; transition: opacity .12s; pointer-events: none;
+  background: linear-gradient(0deg, rgba(0, 0, 0, .07), rgba(0, 0, 0, .063) 6.7%, rgba(0, 0, 0, .031) 20%, rgba(0, 0, 0, .024) 33%, rgba(0, 0, 0, .012) 46.7%, rgba(0, 0, 0, .008) 60%, rgba(0, 0, 0, .004) 73%, rgba(0, 0, 0, 0)); }
+.fid-view-foot.sh::before { opacity: 1; }
+.fid-view-save { flex: none; height: 40px; min-width: 70.2px; padding: 0 16.25px; border: 1px solid #0a78be; border-radius: 5.5px; background: #0a78be; font-size: 16px; font-weight: 600; line-height: 20px; color: #fff; white-space: nowrap; }
+.fid-view-save:hover:not(:disabled) { background: #0869a6; border-color: #0869a6; }
+.fid-view-save:active:not(:disabled) { background: #075a8f; border-color: #075a8f; }
+.fid-view-save:focus-visible { outline: 2px solid #0a78be; outline-offset: 2px; }
+/* the real pane shows Save in full blue even while the name is still empty; the button stays disabled (nothing is saved without a name).
+   To show a pale disabled look instead, add:  .fid-view-save:disabled { opacity: .55; } */
+.fid-view-save:disabled { cursor: default; }
+.fid-view-save.alt { background: #fff; border-color: #a7b3bf; color: #1c2b33; }
+.fid-view-save.alt:hover:not(:disabled) { background: #edf0f2; border-color: #a7b3bf; }
+.fid-view-save.alt:disabled { color: #8a9094; border-color: #cbd2d9; }
+
+/* the real pane is a little taller than its window: the whole panel scrolls by this much */
+.fid-view-tail { flex: none; height: 27px; }

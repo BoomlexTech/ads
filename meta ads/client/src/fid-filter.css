@@ -1,0 +1,114 @@
+/* ===== Search bar + filter dropdown, matched to the reference screenshots (43_filter_menu and the bar in 33..43) =====
+   Numbers are design px = reference px / 1.125. Everything is scoped under .fid-filter (root of SearchBar) / .fid-fm (root of FilterMenu);
+   the dropdown container is the existing <div class="pop filterpop"> which is only used here. */
+
+.fid-filter { --ff-ink: #1c2b33; --ff-off: #778085; --ff-blue: #0a78be; --ff-link: #1461cc; --ff-hover: #f2f2f2; --ff-line: #ced0cf; --ff-ring: #cee4f2; }
+.fid-filter .fs-wrap { position: relative; margin: -1.9px 0 1.9px -0.9px; } /* the reference bar sits 1 ref px up/left of the quick-view buttons' grid */
+
+/* ---- the bar ---- */
+.fid-filter .search {
+  /* latest real screenshot: the idle bar has NO outline (white on the band), 45 ref px high, glyph 9 ref px and text 53 ref px from its left edge */
+  box-sizing: border-box; height: 40px; padding: 0 12px 0 7.5px; gap: 19.25px;
+  background: #fff; border: 0; border-radius: 4px; box-shadow: none;
+  font-size: 15.8px; line-height: 20px; font-weight: 480; color: var(--ff-ink); cursor: text; overflow: hidden;
+}
+.fid-filter .search.focus { box-shadow: inset 0 0 0 .9px var(--ff-blue), inset 0 0 0 4.05px var(--ff-ring); }
+.fid-filter .search .fs-glyph { flex: none; display: block; color: #283943; user-select: none; pointer-events: none; }
+.fid-filter .search input {
+  flex: 1; min-width: 60px; height: 100%; padding: 0; border: 0; outline: 0; background: transparent;
+  font: inherit; font-size: 15.8px; color: var(--ff-ink);
+}
+.fid-filter .search input::placeholder { color: #6b757a; opacity: 1; }
+
+/* chips (quick view, filters, "Selected rows") and Clear */
+.fid-filter .chip {
+  box-sizing: border-box; flex: 0 1 auto; min-width: 56px; overflow: hidden; height: 30px; gap: 7px; padding: 0 7px 0 10px; border: 1px solid #cbd2d9; border-radius: 4px;
+  background: #f1f4f6; color: var(--ff-ink); font-size: 15.2px; font-weight: 500; line-height: 20px;
+}
+.fid-filter .chip .chip-t { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fid-filter .chip button { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; margin: 0; border-radius: 50%; color: #4b5a63; cursor: pointer; }
+.fid-filter .chip button:hover { background: #dfe4e8; color: var(--ff-ink); }
+.fid-filter .search .clr {
+  flex: none; display: inline-flex; align-items: center; justify-content: center; height: 30px; margin-left: auto; padding: 0 9px; border: 0; border-radius: 4px; background: none;
+  font: inherit; font-size: 15.8px; font-weight: 500; color: var(--ff-ink); cursor: pointer;
+}
+.fid-filter .search .clr:hover { background: var(--ff-hover); }
+
+/* ---- the dropdown panel ---- */
+.fid-filter .pop.filterpop {
+  top: calc(100% + 12.4px); left: 32px; right: auto; z-index: 70;
+  display: flex; flex-direction: column; box-sizing: border-box;
+  width: 444.4px; min-width: 0; max-width: calc(100% - 40px);
+  max-height: min(555.6px, calc(var(--vh, 810px) - 205px));
+  padding: 0; overflow: hidden; border-radius: 7.8px 0 0 7.8px; background: #fff;
+  box-shadow: 0 2.7px 1.8px rgba(0, 0, 0, .08), 0 7.1px 35.6px rgba(0, 0, 0, .12);
+}
+.fid-fm {
+  display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; box-sizing: border-box;
+  font-size: 15.8px; line-height: 20px; font-weight: 480; color: var(--ff-ink); text-align: left;
+}
+.fid-fm *, .fid-fm *::before, .fid-fm *::after { box-sizing: border-box; }
+.fid-fm button, .fid-fm select, .fid-fm input { font: inherit; letter-spacing: normal; }
+.fid-fm .ff-scroll { flex: 1 1 auto; min-height: 0; overflow-y: auto; overflow-x: hidden; padding-bottom: 0; overscroll-behavior: contain; }
+
+/* titles */
+.fid-fm .ff-title, .fid-fm .ff-cap { padding: 14.4px 13.3px 8px; font-size: 15.6px; font-weight: 760; line-height: 20px; color: #404040; }
+.fid-fm .ff-cap { padding-top: 10px; padding-bottom: 5px; }
+.fid-fm .ff-hr { height: 1px; margin: 4px 0 0; background: #e4e6ea; }
+
+/* rows */
+.fid-fm .ff-row {
+  display: flex; align-items: center; width: 100%; height: 42.15px; margin: 0; padding: 0 13.3px; border: 0; border-radius: 0; background: none;
+  color: var(--ff-ink); text-align: left; white-space: nowrap; cursor: pointer;
+}
+.fid-fm .ff-row.soft { color: #262626; }
+.fid-fm .ff-row:hover:not(:disabled) { background: var(--ff-hover); }
+.fid-fm .ff-row.on { background: #e2eef7; }
+.fid-fm .ff-row:disabled { color: var(--ff-off); cursor: default; }
+.fid-fm .ff-ai { color: #262626; }
+.fid-fm .ff-ai img { flex: none; display: block; width: 21.33px; height: 21.33px; margin: 0 7.2px 0 -1.7px; }
+
+/* "Hide filters" link */
+.fid-fm .ff-link {
+  display: flex; align-items: center; gap: 4.4px; height: 36px; margin: 6.45px 0 4.8px; padding: 0 13.3px; border: 0; background: none;
+  color: var(--ff-link); cursor: pointer; text-align: left;
+}
+.fid-fm .ff-link .ff-caret { flex: none; display: block; }
+.fid-fm .ff-link:hover { text-decoration: underline; }
+
+/* the operator + value editor shown under the list once a field is picked */
+.fid-fm .ff-ed { flex: none; padding: 10px 13.3px 13px; border-top: 1px solid #e4e6ea; background: #fff; box-shadow: 0 -2px 6px rgba(0, 0, 0, .04); }
+.fid-fm .ff-ed > b { display: block; margin-bottom: 8px; font-size: 15.6px; font-weight: 760; line-height: 20px; color: #404040; }
+.fid-fm .ff-ed-r { display: flex; align-items: center; gap: 8px; }
+.fid-fm .ff-ed select, .fid-fm .ff-ed input {
+  height: 36px; min-width: 0; padding: 0 9px; border: 1px solid #cbd2d9; border-radius: 4px; background: #fff; color: var(--ff-ink); outline: 0;
+}
+.fid-fm .ff-ed select {
+  flex: 1.15 1 0; padding-right: 26px; cursor: pointer; -webkit-appearance: none; appearance: none;
+  background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6.5' viewBox='0 0 10 6.5'%3E%3Cpath d='M0 0H10L5 6.5z' fill='%231c2b33'/%3E%3C/svg%3E") no-repeat right 10px center;
+}
+.fid-fm .ff-ed input[type=number] { -moz-appearance: textfield; appearance: textfield; }
+.fid-fm .ff-ed input[type=number]::-webkit-inner-spin-button, .fid-fm .ff-ed input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.fid-fm .ff-ed input { flex: 1 1 0; }
+.fid-fm .ff-ed input::placeholder { color: #6b757a; opacity: 1; }
+.fid-fm .ff-ed select:focus, .fid-fm .ff-ed input:focus { border-color: var(--ff-blue); box-shadow: inset 0 0 0 2px var(--ff-ring); }
+.fid-fm .ff-apply {
+  flex: none; height: 36px; padding: 0 19px; border: 0; border-radius: 4.5px; background: var(--ff-blue); color: #fff; font-weight: 600; cursor: pointer;
+}
+.fid-fm .ff-apply:hover:not(:disabled) { background: #08679f; }
+.fid-fm .ff-apply:disabled { opacity: .45; cursor: default; }
+
+/* ---- the scrollbar: the native Windows look of the reference (17px track, round thumb, arrow buttons), same as the toolbar dropdowns ---- */
+.fid-fm .ff-scroll::-webkit-scrollbar { width: 17px; }
+.fid-fm .ff-scroll::-webkit-scrollbar-track { background: #fcfcfc; }
+.fid-fm .ff-scroll::-webkit-scrollbar-thumb { background: #8b8b8b; background-clip: padding-box; border: 3.6px solid transparent; border-radius: 8.5px; min-height: 40px; }
+.fid-fm .ff-scroll::-webkit-scrollbar-thumb:hover { background-color: #7a7a7a; }
+.fid-fm .ff-scroll::-webkit-scrollbar-button:single-button { display: block; height: 17px; width: 17px; background-color: #fcfcfc; background-repeat: no-repeat; }
+.fid-fm .ff-scroll::-webkit-scrollbar-button:single-button:vertical:decrement {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='6.2' viewBox='0 0 9 6.2'%3E%3Cpath d='M4.5 0L9 6.2H0z' fill='%238b8b8b'/%3E%3C/svg%3E");
+  background-position: 4px 7.1px;
+}
+.fid-fm .ff-scroll::-webkit-scrollbar-button:single-button:vertical:increment {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='6.2' viewBox='0 0 9 6.2'%3E%3Cpath d='M0 0H9L4.5 6.2z' fill='%238b8b8b'/%3E%3C/svg%3E");
+  background-position: 4px 3.7px;
+}

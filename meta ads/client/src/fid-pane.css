@@ -1,0 +1,119 @@
+/* Right-hand "Compare all ads" pane. Measured from the real Ads Manager screenshot (1 design px = 1.125 screenshot px).
+   Everything is scoped under .fid-pane; the global .pop / .pop-anchor rules are only reused for the Metric list.
+   Structure:  .fid-pane (light-blue frame)  >  .fid-pane-panel (white panel, scrolls as a whole)
+               >  .fid-pane-head (title + X)  +  .fid-pane-body (own scroll area)  >  .fid-pane-in  >  tabs / select / metric card */
+
+.fid-pane { flex: none; display: flex; min-height: 0; padding: 0 4px 4px 8px; background: #f1f4f7; color: #1c2b33; }
+.fid-pane.flush { padding: 0; background: none; }
+.fid-pane *, .fid-pane *::before, .fid-pane *::after { box-sizing: border-box; }
+
+.fid-pane-panel {
+  position: relative; display: flex; flex-direction: column; flex: none; width: 470px; min-height: 0;
+  background: #fff; border-radius: 0 8px 8px 8px; box-shadow: -1px 1px 0 #e2e5e8, -.7px .7px 4px .7px rgba(0, 0, 0, .07); overflow: hidden;
+  /* the real pane only casts its shadow to the left and below (flat frame above and to the right of it) */
+  clip-path: inset(0 0 -10px -10px round 0 8px 0 0);
+}
+.fid-pane-scroll { flex: 1 1 auto; display: flex; flex-direction: column; min-height: 0; overflow-x: hidden; overflow-y: auto; }
+.fid-pane.flush .fid-pane-panel { box-shadow: none; border-left: 1px solid #e2e5e8; border-radius: 0; }
+
+/* the close glyph */
+.fid-pane-x .fid-pane-cross { display: block; flex: none; position: relative; top: .7px; }
+
+/* the two scrollbars (the whole pane and the area under the header) look like the real ones: 17px wide, light track, grey pill thumb,
+   small triangle buttons. Drawn here so that their size scales with the page like everything else. */
+.fid-pane-scroll::-webkit-scrollbar, .fid-pane-body::-webkit-scrollbar { width: 17px; height: 17px; background: #fcfcfc; }
+.fid-pane-scroll::-webkit-scrollbar-track, .fid-pane-body::-webkit-scrollbar-track { background: #fcfcfc; }
+.fid-pane-scroll::-webkit-scrollbar-thumb, .fid-pane-body::-webkit-scrollbar-thumb { border: 3.6px solid transparent; border-radius: 10px; background: #8b8b8b; background-clip: padding-box; min-height: 40px; }
+.fid-pane-scroll::-webkit-scrollbar-thumb:hover, .fid-pane-body::-webkit-scrollbar-thumb:hover { background-color: #6d6d6d; background-clip: padding-box; }
+.fid-pane-scroll::-webkit-scrollbar-thumb:active, .fid-pane-body::-webkit-scrollbar-thumb:active { background-color: #505050; background-clip: padding-box; }
+.fid-pane-scroll::-webkit-scrollbar-button:single-button, .fid-pane-body::-webkit-scrollbar-button:single-button { display: block; width: 17px; height: 17px; background-color: #fcfcfc; background-repeat: no-repeat; background-size: 8px 6.2px; }
+.fid-pane-scroll::-webkit-scrollbar-button:vertical:start:decrement, .fid-pane-body::-webkit-scrollbar-button:vertical:start:decrement { background-position: 50% 7px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='6.2'%3E%3Cpath d='M4 .7L7.4 5.5H.6z' fill='%238b8b8b' stroke='%238b8b8b' stroke-width='1' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.fid-pane-scroll::-webkit-scrollbar-button:vertical:end:increment, .fid-pane-body::-webkit-scrollbar-button:vertical:end:increment { background-position: 50% 3.5px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='6.2'%3E%3Cpath d='M.6 .7H7.4L4 5.5z' fill='%238b8b8b' stroke='%238b8b8b' stroke-width='1' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.fid-pane-scroll::-webkit-scrollbar-button:vertical:start:increment, .fid-pane-body::-webkit-scrollbar-button:vertical:start:increment,
+.fid-pane-scroll::-webkit-scrollbar-button:vertical:end:decrement, .fid-pane-body::-webkit-scrollbar-button:vertical:end:decrement { display: none; }
+
+/* header: 58px high, title at the left, square close button at the right */
+.fid-pane-head { flex: none; height: 58px; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 0 17.8px; background: #fff; }
+.fid-pane-head h3 { margin: 0; min-width: 0; font-size: 17.8px; font-weight: 700; line-height: 24px; color: #1c2b33; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fid-pane-x { flex: none; width: 44.4px; height: 40px; padding: 0; display: flex; align-items: center; justify-content: center; border: 1px solid #a7b3bf; border-radius: 5.5px; background: #fff; color: #1c2b33; }
+.fid-pane-x:hover { background: #f1f4f7; }
+.fid-pane-x:active { background: #e8ecf0; }
+.fid-pane-x:focus-visible { outline: 2px solid #0a78be; outline-offset: 1px; }
+
+/* the scroll area under the header (the divider belongs to its content, so it stops at its scrollbar) */
+.fid-pane-body { flex: none; max-height: calc(100% - 58px); min-height: 0; overflow-x: hidden; overflow-y: auto; background: #fff; }
+.fid-pane-in { border-top: 1px solid #cbd2d9; padding: 13.3px 17.8px 17.8px; }
+/* when the inner area scrolls, the real page also scrolls the whole pane by a small amount */
+.fid-pane-tail { flex: none; height: 21.5px; }
+
+/* Trends / Breakdowns */
+.fid-pane-tabs { display: flex; gap: 11.6px; }
+.fid-pane-tabs button { height: 40px; padding: 0 13.3px; border: 0; border-radius: 5.5px; background: none; font-size: 16px; font-weight: 400; line-height: 40px; color: #1c2b33; white-space: nowrap; }
+.fid-pane-tabs button:hover:not(.on) { background: #f1f4f7; }
+.fid-pane-tabs button.on { background: #e1edf7; color: #0a78be; font-weight: 600; }
+.fid-pane-tabs button:focus-visible { outline: 2px solid #0a78be; outline-offset: 1px; }
+
+/* granularity select */
+.fid-pane-sel { position: relative; display: block; margin-top: 13.3px; }
+.fid-pane-sel select { display: block; width: 100%; height: 40px; padding: 0 40px 0 12.4px; border: 1px solid #cbd2d9; border-radius: 5.5px; background: #fff; font-size: 15.5px; line-height: 38px; color: #1c2b33; appearance: none; -webkit-appearance: none; cursor: pointer; }
+.fid-pane-sel select:hover { background: #f8fafb; }
+.fid-pane-sel select:focus-visible { outline: 2px solid #0a78be; outline-offset: 1px; }
+.fid-pane-sel .fid-pane-caret { position: absolute; right: 15.9px; top: 50%; margin-top: -4.4px; pointer-events: none; color: #1c2b33; }
+
+/* the Metric card */
+.fid-pane-card {
+  position: relative; margin-top: 22.2px; padding: 26.7px; min-height: 329px; border-radius: 2px; background: #fff;
+  box-shadow: 0 0 22px rgba(88, 155, 238, .12);
+}
+.fid-pane-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.fid-pane-mhead { min-width: 0; }
+.fid-pane-mt { padding-top: .9px; font-size: 16px; font-weight: 600; line-height: 22px; color: #1c2b33; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fid-pane-mv { margin-top: 8.6px; height: 32px; font-size: 24px; font-weight: 700; line-height: 32px; color: #1c2b33; white-space: nowrap; }
+.fid-pane-mv.dash { display: flex; align-items: center; gap: 1.9px; padding-left: .9px; }
+.fid-pane-mv.dash i { display: block; width: 11.8px; height: 2.7px; background: #1c2b33; }
+
+.fid-pane-mm { position: relative; flex: none; }
+.fid-pane-mbtn { display: inline-flex; align-items: center; height: 40px; padding: 0 15.1px 0 13.3px; border: 1px solid #a7b3bf; border-radius: 5.5px; background: #fff; font-size: 15.7px; font-weight: 400; color: #1c2b33; white-space: nowrap; }
+.fid-pane-mbtn:hover { background: #f1f4f7; }
+.fid-pane-mbtn[aria-expanded='true'] { background: #e8edf2; }
+.fid-pane-mbtn:focus-visible { outline: 2px solid #0a78be; outline-offset: 1px; }
+.fid-pane-mbtn span { position: relative; top: -.9px; }
+.fid-pane-mbtn .fid-pane-pencil { position: relative; top: -.9px; margin-right: 9.8px; }
+.fid-pane-mbtn .fid-pane-caret { margin-left: 12.4px; }
+
+/* Metric list: same white card as the other dropdowns, radio rows like the Columns menu */
+.pop.fid-pane-menu { top: calc(100% + 6px); right: 0; left: auto; z-index: 90; width: 300px; padding: 4.5px; border-radius: 8px; background: #fff; box-shadow: 0 2px 14px rgba(0, 0, 0, .2), 0 0 0 1px rgba(0, 0, 0, .04); }
+.fid-pane-opt { display: flex; align-items: center; gap: 9.8px; width: 100%; height: 44.4px; padding: 0 8px; border: 0; border-radius: 6px; background: none; text-align: left; font-size: 16px; font-weight: 400; color: #1c2b33; white-space: nowrap; }
+.fid-pane-opt:hover { background: #f1f4f7; }
+.fid-pane-opt.on { background: #e2eef7; }
+.fid-pane-opt:focus-visible { outline: 2px solid #0a78be; outline-offset: -2px; }
+.fid-pane-radio { flex: none; display: block; width: 27.6px; height: 27.6px; border: 1.5px solid #8e98a0; border-radius: 50%; background: #fff; }
+.fid-pane-opt.on .fid-pane-radio { border-color: #1a75b0; background: radial-gradient(circle, #0a78be 0 6.1px, #fff 6.7px); }
+
+/* empty state */
+.fid-pane-empty { display: flex; flex-direction: column; align-items: center; margin-top: 56px; text-align: center; }
+.fid-pane-empty .fid-pane-ill { color: #8a9094; }
+.fid-pane-empty b { margin-top: 16.4px; font-size: 17.7px; font-weight: 700; line-height: 24px; color: #1c2b33; }
+.fid-pane-empty span { margin-top: 3.8px; font-size: 15.6px; line-height: 22px; color: #646e72; }
+
+/* charts */
+.fid-pane-chart { position: relative; margin-top: 14px; }
+.fid-pane-load { padding: 70px 10px; text-align: center; color: #646e72; }
+.fid-pane-svg text { font-family: inherit; font-size: 11.5px; fill: #646e72; }
+.fid-pane-svg .gl { stroke: #e4e6ea; }
+.fid-pane-svg .ax { stroke: #c9ced3; }
+.fid-pane-svg .bar { fill: #0a78be; }
+.fid-pane-svg .bar.hov { fill: #08679f; }
+.fid-pane-svg .ln { stroke: #0a78be; stroke-width: 2.5; stroke-linejoin: round; }
+.fid-pane-svg .dot { fill: #0a78be; }
+.fid-pane-tip { position: absolute; top: 0; right: 4px; padding: 8px 12px; border-radius: 8px; background: #fff; box-shadow: 0 2px 12px rgba(0, 0, 0, .25); font-size: 13.5px; line-height: 1.4; color: #1c2b33; pointer-events: none; }
+.fid-pane-tip.left { right: auto; left: 60px; }
+.fid-pane-tip b { font-weight: 600; }
+
+/* breakdown bars */
+.fid-pane-bars { display: grid; gap: 12px; margin-top: 18px; }
+.fid-pane-bar { display: grid; grid-template-columns: 140px 1fr auto; align-items: center; gap: 10px; font-size: 14.4px; color: #1c2b33; }
+.fid-pane-bar span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fid-pane-bar > div { height: 14px; border-radius: 3px; background: #eef1f4; }
+.fid-pane-bar i { display: block; height: 100%; border-radius: 3px; background: #0a78be; }
+.fid-pane-bar b { font-weight: 600; }

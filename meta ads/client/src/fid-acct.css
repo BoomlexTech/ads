@@ -1,0 +1,118 @@
+/* ======================================================================
+   The account panel (AccountPanel.jsx): the card that opens under the account selector of the top bar.
+   Measured from the real page at a 1908 px window: design px = screenshot px / 1.1224.
+     card 829 x 487 (738.6 x 433.9)   search field 789 x 45, 20 px around it   left column 372 wide (#edf5ff)
+     rows 342 x 65, tiles 40   account row 415 x 85 (#e1edf7)   buttons 45 high
+   Everything is scoped under .fid-ap; the popover box around it (.pop.fid-acct-pop) is styled in fid-topbar.css.
+   ====================================================================== */
+.fid-ap {
+  box-sizing: border-box; display: flex; flex-direction: column; width: 738.6px; max-width: 738.6px; overflow: hidden auto; border-radius: 4px;
+  background: #fff; color: #1c2b33; font: 400 15.6px/20px var(--font); text-align: left; cursor: default;
+}
+.fid-ap *, .fid-ap *::before, .fid-ap *::after { box-sizing: border-box; }
+.fid-ap svg { display: block; flex: none; }
+.fid-ap button { font-family: inherit; cursor: pointer; }
+
+/* ---------- search ---------- */
+.fid-ap .ap-head { flex: none; padding: 17.8px; border-bottom: 1px solid #e0e4e8; }
+.fid-ap .ap-search {
+  display: flex; align-items: center; gap: 7.6px; height: 40.1px; padding: 0 12px 0 13.4px; border: 1px solid #cbd2d9; border-radius: 4.4px; background: #fff; color: #283943; cursor: text;
+}
+.fid-ap .ap-search:focus-within { border-color: #0a78be; box-shadow: 0 0 0 1px #0a78be; }
+.fid-ap .ap-search input { flex: 1 1 0; min-width: 0; height: 100%; padding: 0; border: 0; outline: 0; background: none; font: 400 15.6px/20px var(--font); color: #1c2b33; }
+.fid-ap .ap-search input::placeholder { color: #6b757a; opacity: 1; }
+
+/* ---------- the two columns ---------- */
+.fid-ap .ap-body { flex: 1 0 auto; display: grid; grid-template-columns: 331.4px minmax(0, 1fr); min-height: 357.3px; }
+.fid-ap .ap-left {
+  display: flex; flex-direction: column; min-width: 0;
+  /* the white column lies on top of the blue one: a soft shadow falls onto its right edge */
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0) calc(100% - 13px), rgba(0, 0, 0, .055) 100%) #edf5ff;
+}
+.fid-ap .ap-list { flex: 1 1 auto; padding: 16.9px 0 16.9px; }
+.fid-ap .ap-h { display: flex; align-items: center; gap: 8.4px; height: 33.9px; padding: 0 16.9px 0 18.4px; font-size: 17.3px; font-weight: 600; line-height: 20px; white-space: nowrap; }
+.fid-ap .ap-info { flex: none; display: block; color: #283943; font-style: normal; position: relative; top: -.5px; }
+.fid-ap .ap-none { padding: 8.9px 18.4px; font-size: 13.4px; line-height: 17.8px; color: #6b757a; }
+
+/* a business portfolio / the personal account */
+.fid-ap .ap-row {
+  display: flex; align-items: center; height: 57.9px; margin: 0 16.9px 1.8px 9.8px; padding: 0 11.6px 0 8.9px; border-radius: 3.6px; cursor: pointer; outline: 0;
+}
+.fid-ap .ap-row:hover { background: rgba(28, 43, 51, .07); }
+.fid-ap .ap-row.on, .fid-ap .ap-row.on:hover { background: #283943; color: #fff; }
+.fid-ap .ap-row:focus-visible, .fid-ap .ap-acct:focus-visible { outline: 2px solid #0a78be; outline-offset: 1px; }
+.fid-ap .ap-tile {
+  flex: none; display: flex; align-items: center; justify-content: center; width: 35.6px; height: 35.6px; margin-right: 8.5px; border-radius: 2.7px;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .6); font: 700 19.6px/1 var(--font); user-select: none;
+}
+.fid-ap .ap-tile.a { background: #63a3f2; color: #05469c; }
+.fid-ap .ap-tile.b { background: #d094d9; color: #643682; }
+.fid-ap .ap-tile.me { background: #1c2b33; color: #fff; box-shadow: none; font-size: 17.8px; }
+.fid-ap .ap-row.on .ap-tile.me { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .3); }
+.fid-ap .ap-txt { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; }
+.fid-ap .ap-cap { display: block; font-size: 13.4px; line-height: 17.8px; font-weight: 400; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fid-ap .ap-row .ap-cap { position: relative; top: 1.3px; }
+.fid-ap .ap-acct .ap-cap { position: relative; top: .9px; }
+.fid-ap .ap-acct .ap-aname { position: relative; top: -.9px; }
+.fid-ap .ap-chev { flex: none; margin-left: 8.9px; color: #fff; opacity: .86; }
+
+/* a name (plain text; in the admin panel with a pencil and a text box, see below) */
+.fid-ap .ap-nm { display: flex; align-items: center; min-width: 0; max-width: 100%; }
+.fid-ap .ap-nm-t { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fid-ap .ap-name { font-size: 17.8px; line-height: 21.4px; font-weight: 630; }
+.fid-ap .ap-title { font-size: 18.7px; line-height: 24.9px; font-weight: 630; position: relative; top: -1.3px; }
+.fid-ap .ap-aname { font-size: 17.4px; line-height: 21.4px; font-weight: 630; }
+
+/* footer of the left column */
+.fid-ap .ap-foot { flex: none; padding: 17.8px 16.9px 17.8px 17.8px; border-top: 1px solid #cbd2d9; }
+.fid-ap .ap-btn {
+  display: inline-flex; align-items: center; justify-content: center; height: 40.1px; padding: 0 16px; border: 1px solid #a7b3bf; border-radius: 4.4px;
+  background: transparent; color: #1c2b33; font: 500 15.7px/20px var(--font); white-space: nowrap;
+}
+.fid-ap .ap-btn:hover { background: rgba(28, 43, 51, .05); }
+.fid-ap .ap-btn:focus-visible, .fid-ap .ap-gear:focus-visible, .fid-ap .ap-pen:focus-visible { outline: 2px solid #0a78be; outline-offset: 1px; }
+.fid-ap .ap-create { width: 100%; }
+
+/* ---------- right column: the selected portfolio and its ad accounts ---------- */
+.fid-ap .ap-right { min-width: 0; padding: 17px 18.7px 17.8px 18.7px; background: #fff; }
+.fid-ap .ap-rh { display: flex; align-items: center; gap: 8.9px; min-height: 46.3px; }
+.fid-ap .ap-rt { flex: 1 1 0; min-width: 0; }
+.fid-ap .ap-sub { font-size: 13.8px; line-height: 17.8px; margin-top: 2.2px; }
+.fid-ap .ap-gear { flex: none; display: flex; align-items: center; justify-content: center; width: 35.6px; height: 35.6px; margin-right: 4.5px; padding: 0; border: 0; border-radius: 4.4px; background: none; color: #283943; }
+.fid-ap .ap-gear:hover { background: #f2f2f2; }
+.fid-ap .ap-rc { display: flex; align-items: center; justify-content: space-between; gap: 8.9px; height: 40.1px; margin-top: 16.9px; }
+.fid-ap .ap-rc > b { min-width: 0; font-size: 17.1px; line-height: 20px; font-weight: 600; white-space: nowrap; }
+.fid-ap .ap-add { flex: none; min-width: 110.5px; padding: 0 15px 0 15.9px; font-size: 15px; }
+.fid-ap .ap-add > span { margin: 0 13.4px 0 11.6px; }
+.fid-ap .ap-add .fid-tb-caret { color: #1c2b33; }
+
+/* an ad account */
+.fid-ap .ap-acct { display: flex; align-items: center; min-height: 75.7px; margin-top: 8.9px; padding: 9.3px 10.7px 9.3px 8.9px; border-radius: 3.6px; background: #e1edf7; cursor: pointer; outline: 0; }
+.fid-ap .ap-acct:hover { background: #d8e7f4; }
+.fid-ap .ap-radio { flex: none; position: relative; width: 26.7px; height: 26.7px; margin-right: 8.9px; border: 1px solid #cbd2d9; border-radius: 50%; background: #fff; }
+.fid-ap .ap-radio::after { content: ''; position: absolute; left: 50%; top: 50%; width: 14.2px; height: 14.2px; margin: -7.1px 0 0 -7.1px; border-radius: 50%; background: #0a78be; }
+.fid-ap .ap-acct-ic { flex: none; display: flex; align-items: center; justify-content: center; width: 35.6px; height: 35.6px; margin-right: 10.7px; border-radius: 50%; background: #f1f4f7; color: #283943; }
+.fid-ap .ap-acct-ic svg { width: 21.33px; height: 17.78px; }
+.fid-ap .ap-ring { flex: none; margin-left: 10.7px; }
+
+/* ---------- admin panel: rename a name in place ---------- */
+.fid-ap .ap-pen {
+  flex: none; display: flex; align-items: center; justify-content: center; width: 23px; height: 23px; margin-left: 5.3px; padding: 0; border: 0; border-radius: 4px;
+  background: none; color: #465a69; opacity: 0;
+}
+.fid-ap .ap-row:hover .ap-pen, .fid-ap .ap-rt:hover .ap-pen, .fid-ap .ap-acct:hover .ap-pen, .fid-ap .ap-pen:focus-visible { opacity: 1; }
+.fid-ap .ap-pen:hover { background: rgba(28, 43, 51, .1); color: #1c2b33; }
+.fid-ap .ap-row.on .ap-pen { color: #fff; }
+.fid-ap .ap-row.on .ap-pen:hover { background: rgba(255, 255, 255, .18); color: #fff; }
+.fid-ap.is-admin .ap-nm-t { cursor: text; }
+.fid-ap .ap-inp {
+  display: block; width: 100%; min-width: 0; margin: -1px 0 -1px -6.3px; padding: 0 5.3px; border: 1px solid #0a78be; border-radius: 3.6px; outline: 0;
+  background: #fff; color: #1c2b33; font-family: var(--font); box-shadow: 0 0 0 1px #0a78be; cursor: text;
+}
+.fid-ap .ap-inp.ap-name, .fid-ap .ap-inp.ap-aname { height: 23.4px; }
+.fid-ap .ap-inp.ap-title { height: 26.9px; }
+
+/* ---------- a window too narrow for two columns: the columns are stacked ---------- */
+.fid-ap.is-stack .ap-body { grid-template-columns: minmax(0, 1fr); min-height: 0; }
+.fid-ap.is-stack .ap-left { background: #edf5ff; }
+.fid-ap.is-stack .ap-row { margin-right: 9.8px; }

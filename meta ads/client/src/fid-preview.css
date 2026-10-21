@@ -1,0 +1,160 @@
+/* ===== "Ad preview" dialog, matched to the reference screenshots (37_preview_modal, 38_preview_modal_empty) =====
+   --r is ONE REFERENCE pixel in design px (1 / 1.125): lengths below are written in reference pixels, e.g. calc(54 * var(--r)),
+   so they can be compared 1:1 with the screenshots. Everything is scoped under .fid-pv-overlay. */
+.fid-pv-overlay {
+  --r: .88889px; --pv-ink: #1c2b33; --pv-line: #cbd2d9; --pv-blue: #0a78be;
+  position: fixed; inset: 0; z-index: 100; display: flex; justify-content: center; align-items: flex-start;
+  background: rgba(0, 0, 0, .6); font-family: var(--font); font-size: 15.8px; line-height: 20px; color: var(--pv-ink);
+}
+.fid-pv-overlay *, .fid-pv-overlay *::before, .fid-pv-overlay *::after { box-sizing: border-box; }
+.fid-pv-overlay :where(button) { font: inherit; color: inherit; letter-spacing: normal; }
+.fid-pv-overlay h2, .fid-pv-overlay h3, .fid-pv-overlay p { margin: 0; }
+.fid-pv-ic { display: block; flex: none; }
+.fid-pv-gi { display: block; flex: none; background: currentColor; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; }
+
+/* ---- the dialog ---- */
+.fid-pv {
+  flex: none; display: flex; flex-direction: column; overflow: hidden; outline: 0;
+  width: calc(750 * var(--r)); max-width: calc(100% - 16px); margin-top: calc(29 * var(--r));
+  height: min(calc(786 * var(--r)), calc(var(--vh, 100vh) - 29 * var(--r) - 16px));
+  background: #fff; border-radius: calc(6.5 * var(--r));
+  box-shadow: 0 3px 0 rgba(0, 0, 0, .3), 0 0 20px rgba(0, 0, 0, .2);
+}
+
+/* header: 66 high, bold title at the left, close glyph at the right; a soft shadow shows once the body scrolls */
+.fid-pv-head { position: relative; z-index: 2; flex: none; display: flex; align-items: center; justify-content: space-between; height: calc(65 * var(--r)); padding: 0 calc(15 * var(--r)) 0 calc(20 * var(--r)); background: #fff; }
+.fid-pv-head.sh { box-shadow: 0 0 6px rgba(0, 0, 0, .12); }
+.fid-pv-head h2 { font-size: 17.85px; font-weight: 700; line-height: 24px; color: var(--pv-ink); }
+.fid-pv-x { position: relative; top: calc(1 * var(--r)); flex: none; display: flex; align-items: center; justify-content: center; width: calc(40 * var(--r)); height: calc(40 * var(--r)); padding: 0; border: 0; border-radius: 50%; background: none; color: #28373e; }
+.fid-pv-x:hover { background: #f2f3f5; }
+.fid-pv-x:active { background: #e8eaed; }
+.fid-pv-x:focus-visible, .fid-pv-bx:focus-visible { outline: 2px solid var(--pv-blue); outline-offset: 0; }
+
+/* the scroll area: the native Windows scrollbar of the reference (19 px track, grey pill thumb, small triangle buttons) */
+.fid-pv-body { flex: 1 1 auto; min-height: 0; overflow-x: hidden; overflow-y: auto; background: #fff; }
+.fid-pv-body::-webkit-scrollbar { width: 17px; height: 17px; background: #fcfcfc; }
+.fid-pv-body::-webkit-scrollbar-track { background: #fcfcfc; }
+.fid-pv-body::-webkit-scrollbar-thumb { border: 0 solid transparent; border-left-width: 3.6px; border-right-width: 3.6px; border-radius: 10px; background: #8b8b8b; background-clip: padding-box; min-height: 40px; }
+.fid-pv-body::-webkit-scrollbar-thumb:hover { background-color: #6d6d6d; background-clip: padding-box; }
+.fid-pv-body::-webkit-scrollbar-thumb:active { background-color: #505050; background-clip: padding-box; }
+.fid-pv-body::-webkit-scrollbar-button:single-button { display: block; width: 17px; height: 20.6px; background-color: #fcfcfc; background-repeat: no-repeat; background-size: 8px 6.2px; }
+.fid-pv-body::-webkit-scrollbar-button:vertical:start:decrement { background-position: 50% 7px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='6.2'%3E%3Cpath d='M4 .7L7.4 5.5H.6z' fill='%238b8b8b' stroke='%238b8b8b' stroke-width='1' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.fid-pv-body::-webkit-scrollbar-button:vertical:end:increment { background-position: 50% 7.1px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='6.2'%3E%3Cpath d='M.6 .7H7.4L4 5.5z' fill='%238b8b8b' stroke='%238b8b8b' stroke-width='1' stroke-linejoin='round'/%3E%3C/svg%3E"); }
+.fid-pv-body::-webkit-scrollbar-button:vertical:start:increment, .fid-pv-body::-webkit-scrollbar-button:vertical:end:decrement { display: none; }
+
+/* content column: 701 wide (596..1296 in the screenshot), hairlines and the grey canvas span all of it */
+.fid-pv-main { padding: calc(1 * var(--r)) calc(15 * var(--r)) 0; }
+
+/* ---- section row: title at the left, "Advanced preview" and the share button at the right ---- */
+.fid-pv-top { display: flex; align-items: center; justify-content: space-between; height: calc(55 * var(--r)); padding: 0 calc(10 * var(--r)) calc(1 * var(--r)) calc(15 * var(--r)); border-bottom: 1px solid var(--pv-line); }
+.fid-pv-sec { font-size: 16.65px; font-weight: 700; line-height: 22px; color: var(--pv-ink); }
+.fid-pv-btns { display: flex; align-items: center; gap: calc(10 * var(--r)); }
+.fid-pv-btn {
+  display: flex; align-items: center; height: calc(45 * var(--r)); padding: 0; border: 1px solid #a7b3bf; border-radius: calc(5.5 * var(--r));
+  background: #fff; color: var(--pv-ink); font-size: 15.7px; font-weight: 500; line-height: 20px; white-space: nowrap; cursor: pointer;
+}
+.fid-pv-btn:hover { background: #f2f4f6; }
+.fid-pv-btn:active { background: #e9ecef; }
+.fid-pv-btn:focus-visible { outline: 2px solid var(--pv-blue); outline-offset: 1px; }
+.fid-pv-adv { width: calc(213 * var(--r)); padding-left: calc(15 * var(--r)); gap: calc(11 * var(--r)); }
+.fid-pv-adv.on { background: #e9eef3; }
+.fid-pv-sh { width: calc(80 * var(--r)); padding-left: calc(15 * var(--r)); gap: calc(13 * var(--r)); }
+.fid-pv-sh.open { background: #e9eef3; }
+.fid-pv-share { position: relative; }
+
+/* share menu */
+.fid-pv-menu {
+  position: absolute; z-index: 5; top: calc(100% + 5px); right: 0; min-width: calc(215 * var(--r)); padding: calc(4.4 * var(--r)) 0;
+  border-radius: 4px; background: #fff; box-shadow: 0 2.7px 1.8px rgba(0, 0, 0, .08), 0 7.1px 35.6px rgba(0, 0, 0, .12), 0 0 0 1px rgba(0, 0, 0, .05);
+}
+.fid-pv-mi {
+  display: flex; align-items: center; width: calc(100% - 8.9px); height: 40px; margin: 0 4.4px; padding: 0 11px 0 17.8px; border: 0; border-radius: 5.3px;
+  background: none; text-align: left; white-space: nowrap; font-size: 15.8px; font-weight: 500; line-height: 20px; color: var(--pv-ink); cursor: pointer;
+}
+.fid-pv-mi:hover { background: #f2f3f5; }
+.fid-pv-mi:focus-visible { outline: 2px solid var(--pv-blue); outline-offset: -2px; }
+
+/* ---- device row ---- */
+.fid-pv-dev { position: relative; display: flex; align-items: center; justify-content: center; height: calc(49 * var(--r)); border-bottom: 1px solid var(--pv-line); }
+.fid-pv-devs { display: flex; gap: calc(10 * var(--r)); }
+.fid-pv-d { display: flex; align-items: center; justify-content: center; width: calc(50 * var(--r)); height: calc(38 * var(--r)); padding: 0; border: 0; border-radius: calc(6 * var(--r)); background: none; color: #283943; cursor: pointer; }
+.fid-pv-d:hover:not(.on) { background: #f2f3f5; }
+.fid-pv-d.on { background: #e1edf7; color: var(--pv-blue); cursor: default; }
+.fid-pv-d:focus-visible { outline: 2px solid var(--pv-blue); outline-offset: 1px; }
+.fid-pv-okc { position: absolute; right: calc(20 * var(--r)); top: 50%; margin-top: calc(-10 * var(--r)); display: flex; }
+
+/* ---- thumbnails strip ---- */
+/* the strip scrolls sideways when there are many ads; the room for its thin scrollbar (--sbh) is always part of its box
+   (and taken off the margin below), so the banner and the canvas never jump when the scrollbar appears */
+.fid-pv-tiles {
+  --sbh: 8px; display: flex; gap: calc(10 * var(--r)); padding: calc(10 * var(--r)) calc(30 * var(--r)) 0;
+  height: calc(70 * var(--r) + var(--sbh)); margin-bottom: calc(25 * var(--r) - var(--sbh)); overflow-x: auto; overflow-y: hidden;
+}
+.fid-pv-tiles::-webkit-scrollbar { height: var(--sbh); background: transparent; }
+.fid-pv-tiles::-webkit-scrollbar-track { background: transparent; }
+.fid-pv-tiles::-webkit-scrollbar-thumb { border-radius: 4px; background: #b4bbc1; }
+.fid-pv-tiles::-webkit-scrollbar-thumb:hover { background: #8b8b8b; }
+@supports not selector(::-webkit-scrollbar) { .fid-pv-tiles { scrollbar-width: thin; } }
+.fid-pv-tile { position: relative; flex: none; display: block; width: calc(60 * var(--r)); height: calc(60 * var(--r)); padding: 0; border: 0; border-radius: calc(6 * var(--r)); background: #f8f9fb; overflow: hidden; cursor: pointer; }
+.fid-pv-tile img, .fid-pv-tile video { display: block; width: 100%; height: 100%; object-fit: cover; }
+.fid-pv-tile::after { content: ''; position: absolute; inset: 0; border-radius: inherit; border: calc(2.05 * var(--r)) solid transparent; pointer-events: none; }
+.fid-pv-tile.on::after { border-color: var(--pv-blue); }
+.fid-pv-tile:not(.on):hover::after { border-color: #cbd2d9; }
+.fid-pv-tile:focus-visible { outline: 2px solid var(--pv-blue); outline-offset: 2px; }
+.fid-pv-all { padding-bottom: calc(2 * var(--r)); font-size: 17.5px; font-weight: 400; line-height: 20px; color: var(--pv-ink); }
+.fid-pv-tile.none { display: flex; align-items: center; justify-content: center; background: #f5f6f7; }
+.fid-pv-tile.none svg { display: block; }
+.fid-pv-badge { position: absolute; top: calc(2 * var(--r)); right: calc(2 * var(--r)); z-index: 1; display: block; }
+
+/* ---- info banner: white card, soft edge, a 5 px grey strip on its left ---- */
+.fid-pv-banner {
+  position: relative; display: flex; align-items: flex-start; margin: 0 calc(15 * var(--r)) calc(15 * var(--r)); padding: calc(14 * var(--r)) calc(50 * var(--r)) calc(16 * var(--r)) calc(20 * var(--r));
+  min-height: calc(80 * var(--r)); border-radius: calc(6 * var(--r)); background: #fff; box-shadow: 0 0 calc(3.5 * var(--r)) rgba(0, 0, 0, .13);
+}
+.fid-pv-banner::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: calc(5 * var(--r)); border-radius: calc(6 * var(--r)) 0 0 calc(6 * var(--r)); background: var(--pv-line); }
+.fid-pv-bi { flex: none; display: flex; margin-top: calc(3 * var(--r)); margin-right: calc(10 * var(--r)); color: #283943; }
+.fid-pv-banner p { font-size: 15.8px; line-height: calc(25 * var(--r)); color: var(--pv-ink); }
+.fid-pv-bx { position: absolute; right: calc(15 * var(--r)); top: calc(17 * var(--r)); display: flex; align-items: center; justify-content: center; width: calc(30 * var(--r)); height: calc(30 * var(--r)); padding: 0; border: 0; border-radius: 50%; background: none; color: #28373e; }
+.fid-pv-bx:hover { background: #f2f3f5; }
+
+/* ---- grey canvas with the preview(s) ---- */
+.fid-pv-canvas { display: flex; flex-direction: column; align-items: center; min-height: calc(750 * var(--r)); padding: calc(24 * var(--r)) 0; background: #f7f7f7; }
+.fid-pv-canvas.lone { padding-top: calc(207 * var(--r)); }
+.fid-pv-item { width: 100%; display: flex; flex-direction: column; align-items: center; }
+.fid-pv-canvas.stack .fid-pv-item + .fid-pv-item { margin-top: calc(24 * var(--r)); padding-top: calc(24 * var(--r)); border-top: 1px solid #e4e6ea; }
+.fid-pv-canvas.stack .fid-pv-empty { padding: calc(40 * var(--r)) 0; }
+.fid-pv-name { align-self: stretch; margin: 0 calc(24 * var(--r)) calc(10 * var(--r)); font-size: 13.5px; font-weight: 600; color: #4b5a62; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.fid-pv-frame { width: 342px; max-width: 100%; }
+.fid-pv-canvas[data-adv] .fid-pv-frame { width: 430px; }
+.fid-pv-canvas[data-device="story"] .fid-pv-frame { width: 280px; }
+.fid-pv-canvas[data-device="wide"] .fid-pv-frame { width: 470px; }
+.fid-pv-canvas[data-device="wide"][data-adv] .fid-pv-frame { width: 540px; }
+.fid-pv-frame .pv-card { position: static; box-shadow: 0 1px 3px rgba(0, 0, 0, .12); border-color: #e4e6ea; }
+.fid-pv-frame .pv-media { aspect-ratio: 4 / 5; }
+.fid-pv-frame.nomedia .pv-media { display: none; }   /* text-only ad: no empty picture block */
+.fid-pv-canvas[data-device="square"] .pv-media { aspect-ratio: 1 / 1; }
+.fid-pv-canvas[data-device="story"] .pv-media { aspect-ratio: 9 / 16; }
+.fid-pv-canvas[data-device="wide"] .pv-media { aspect-ratio: 1.91 / 1; }
+.fid-pv-frame .pv-media video { object-fit: cover; }
+
+/* empty state: stacked device cards and one line of text */
+.fid-pv-empty { display: flex; flex-direction: column; align-items: center; }
+.fid-pv-empty img { display: block; width: calc(258 * var(--r)); height: calc(258 * var(--r)); margin: calc(-4 * var(--r)) 0 0; user-select: none; }
+.fid-pv-empty-t { margin-top: calc(27.5 * var(--r)); font-size: 15.8px; font-weight: 400; line-height: calc(24 * var(--r)); text-align: center; color: var(--pv-ink); }
+
+/* caption under the canvas */
+.fid-pv-cap { display: flex; align-items: center; gap: calc(10 * var(--r)); margin: calc(12.5 * var(--r)) 0 0 calc(10 * var(--r)); padding-bottom: calc(30 * var(--r)); min-height: calc(20 * var(--r)); }
+.fid-pv-cap span { font-size: 13.5px; line-height: 20px; color: #6b757a; }
+.fid-pv-cap .fid-pv-gi { color: #283943; }
+
+/* ---- footer ---- */
+.fid-pv-foot { position: relative; z-index: 2; flex: none; display: flex; justify-content: flex-end; align-items: flex-start; height: calc(80 * var(--r)); padding: calc(15 * var(--r)) calc(19.5 * var(--r)) 0 0; background: #fff; }
+.fid-pv-foot.sh { box-shadow: 0 0 5px rgba(0, 0, 0, .12); }
+.fid-pv-ok { width: calc(66 * var(--r)); height: calc(45 * var(--r)); padding: 0; border: 0; border-radius: calc(5.5 * var(--r)); background: var(--pv-blue); color: #fff; font-size: 15.7px; font-weight: 700; line-height: 20px; cursor: pointer; }
+.fid-pv-ok:hover { background: #096cae; }
+.fid-pv-ok:active { background: #085f9a; }
+.fid-pv-ok:focus-visible { outline: 2px solid var(--pv-blue); outline-offset: 2px; }
+
+.fid-pv-adv .fid-pv-gi { position: relative; top: calc(1 * var(--r)); }
+.fid-pv-sh .fid-pv-ic { position: relative; top: calc(1 * var(--r)); }
+.fid-pv-d:nth-child(n+3) .fid-pv-ic { position: relative; left: calc(.7 * var(--r)); }

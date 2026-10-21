@@ -1,0 +1,36 @@
+/* Rail > Billing pages: Summary (cost figures + billing profile), Settings (billing profile) and
+   the pages that stay empty until a payment provider is connected. */
+.bill-page .card + .card, .bill-page .card + .bill-note { margin-top: 16px; }
+.bill-card { padding: 0 0 4px; }
+.bill-head { margin: 0; padding: 16px 24px 8px; font-size: 16px; font-weight: 500; line-height: 24px; color: var(--text); }
+.bill-loading { padding: 16px 24px; color: var(--muted); font-size: 14px; }
+.bill-figs { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.bill-fig { padding: 16px 24px 14px; border-right: 1px solid var(--line); min-width: 0; }
+.bill-fig:last-child { border-right: 0; }
+.bill-fig-label { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text2); line-height: 20px; }
+.bill-fig-value { font-size: 28px; line-height: 36px; margin-top: 4px; color: var(--text); font-variant-numeric: tabular-nums; }
+.bill-fig.estimate .bill-fig-value { color: var(--text2); }
+.bill-fig-sub { font-size: 12px; line-height: 16px; color: var(--muted); margin-top: 2px; }
+.bill-tag { font-size: 11px; font-weight: 500; letter-spacing: .3px; color: #5f4300; background: #fef7e0; border-radius: 4px; padding: 1px 6px; text-transform: uppercase; }
+.bill-note { margin: 0; padding: 12px 24px; font-size: 13px; line-height: 20px; color: var(--muted); }
+.bill-note.outside { padding: 0 4px; }
+.bill-learn { height: auto; padding: 0 4px; margin-left: 4px; font-size: 13px; vertical-align: baseline; }
+
+.bill-hint { margin: 0; padding: 0 24px 8px; font-size: 13px; color: var(--muted); }
+.bill-profile { margin: 0; padding: 0 24px 8px; }
+.bill-row { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 16px; padding: 14px 0; border-top: 1px solid var(--line2); }
+.bill-row dt { font-size: 14px; color: var(--text2); line-height: 20px; }
+.bill-row dt small { display: block; font-size: 12px; color: var(--muted); }
+.bill-row dd { margin: 0; font-size: 14px; line-height: 20px; color: var(--text); min-width: 0; overflow-wrap: anywhere; }
+.bill-row dd.lines .bill-val { white-space: pre-line; }
+.bill-row .editable { display: inline-block; min-width: 40px; padding: 0 2px; margin: 0 -2px; }
+.bill-unset { color: var(--muted); font-style: italic; }
+.bill-sub { margin: 4px 0 0; font-size: 12px; line-height: 16px; color: var(--muted); max-width: 560px; }
+.bill-row .inline-input { width: min(480px, 100%); }
+.inline-input.inline-area { display: block; resize: vertical; padding: 4px 6px; font: 14px/20px var(--font); }
+.bill-row .inline-select { font-size: 14px; }
+
+.bill-empty { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 48px 24px 40px; text-align: center; }
+.bill-empty p { margin: 0; max-width: 520px; font-size: 14px; line-height: 20px; color: var(--text2); }
+.bill-empty .bill-empty-ic { font-size: 40px; color: #9aa0a6; }
+.bill-empty .bill-learn { font-size: 14px; height: 36px; padding: 0 12px; margin: 0; }

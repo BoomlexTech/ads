@@ -1,0 +1,28 @@
+# Coolify "Docker Compose" service for the Meta Ads Manager demo.
+# Coolify fills ${...} from the service's environment variables and routes the domain to port 5000.
+services:
+  app:
+    build:
+      context: /opt/meta-ads
+    restart: unless-stopped
+    environment:
+      - SERVICE_FQDN_APP_5000
+      - NODE_ENV=production
+      - PORT=5000
+      - MONGO_URI=${MONGO_URI}
+      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
+      - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
+      - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
+      - CLOUDINARY_FOLDER=${CLOUDINARY_FOLDER:-meta-ads-manager-demo}
+      - ADMIN_EMAIL=${ADMIN_EMAIL}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - SESSION_SECRET=${SESSION_SECRET}
+      - DEMO_EMAIL=${DEMO_EMAIL}
+      - DEMO_PASSWORD=${DEMO_PASSWORD}
+      - SEED_ON_EMPTY=true
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:5000/api/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 30s

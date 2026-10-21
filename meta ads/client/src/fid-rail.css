@@ -1,0 +1,53 @@
+/* ======================================================================
+   Left rail (collapsed icon column) and the menu that opens over it.
+   Measured from the reference screenshots 33..43; 1 reference px = 1/1.125 design px.
+   Loaded after styles.css; everything is scoped under .fr-nav / .fr-x.
+   ====================================================================== */
+
+/* ---------- collapsed rail ---------- */
+.rail-l.fr-nav {
+  position: relative; display: block; flex: none; width: 61px; padding: 0; gap: 0; background: #fff;
+  border-right: 1px solid rgba(0, 0, 0, .085); border-bottom: 1px solid rgba(0, 0, 0, .085); background-clip: padding-box; box-shadow: 1px 0 0 rgba(0, 0, 0, .025), 0 1px 0 rgba(0, 0, 0, .025); overflow-x: hidden; overflow-y: auto; scrollbar-width: none; z-index: 5;
+}
+.rail-l.fr-nav::-webkit-scrollbar { display: none; }
+/* the content keeps the reference height (829 px of rail) so the top and bottom groups never overlap on a short window */
+.fr-nav .fr-in { position: relative; height: 100%; min-height: 736.9px; }
+
+.fr-nav .fr-i, .fr-x .fr-i {
+  box-sizing: border-box; position: absolute; left: 7.11px; display: block; margin: 0; padding: 0; border: 0; border-radius: 4.5px;
+  background: none; color: #1c2b33; cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+.fr-nav .fr-i.sm { left: 9.33px; }
+.fr-nav .fr-i:hover, .fr-x .fr-i:hover { background: #f0f2f5; }
+.fr-nav .fr-i.logo:hover { background: none; }
+.fr-nav .fr-i.on { background: #e1edf7; color: #0a78be; }
+.fr-nav .fr-i:focus { outline: 0; }
+.fr-nav .fr-i:focus-visible, .fr-x .fr-i:focus-visible, .fr-x .fr-xi:focus-visible { outline: 2px solid #0a78be; outline-offset: -1px; }
+.fr-g { position: absolute; display: block; overflow: visible; pointer-events: none; }
+
+/* thin separators (1 px, #cbd2d9): the first is the tile width, the second the short one above the help block */
+.fr-nav .fr-sep { position: absolute; left: 7.11px; top: 144px; width: 44.44px; height: 1px; background: #cbd2d9; }
+.fr-nav .fr-sep.b { left: 16px; top: auto; bottom: 177.78px; width: 26.67px; }
+
+/* ---------- menu that opens over the rail ---------- */
+/* no reference screenshot for this part: measured earlier (333 px wide, bottom icons 29 px above the bottom edge), glyph positions identical to the rail */
+.rail-x.fr-x { display: flex; flex-direction: column; box-sizing: border-box; width: 333px; background: #fff; box-shadow: 2px 0 14px rgba(0, 0, 0, .22); overflow-x: hidden; overflow-y: auto; scrollbar-width: none; }
+.fr-x .fr-slot { position: relative; flex: none; display: block; width: 44.44px; height: 44.44px; }
+.fr-x .fr-xtop { flex: none; display: flex; align-items: center; height: 63.11px; padding: 0 0 0 7.11px; color: #1c2b33; }
+.fr-x .fr-xmeta { margin-left: 3px; font: 700 21px/1 var(--font); letter-spacing: -.3px; color: #1c1e21; }
+.fr-x .fr-xtitle { flex: none; height: 39px; padding: 0 16px; font: 700 26px/39px var(--font); color: #1c2b33; white-space: nowrap; }
+.fr-x .fr-xi {
+  box-sizing: border-box; position: relative; flex: none; display: flex; align-items: center; width: calc(100% - 14.22px); height: 44.44px; margin: 2.4px 7.11px 0; padding: 0; border: 0; border-radius: 4.5px;
+  background: none; color: #1c2b33; font: 500 17px/1.2 var(--font); text-align: left; white-space: nowrap; cursor: pointer;
+}
+.fr-x .fr-xtitle + .fr-xi { margin-top: 6px; }
+.fr-x .fr-xi:hover { background: #f0f2f5; }
+.fr-x .fr-xi:focus { outline: 0; }
+.fr-x .fr-xi:focus-visible { outline: 2px solid #0a78be; outline-offset: -1px; }
+.fr-x .fr-xi .fr-xl { padding-left: 2px; }
+.fr-x .fr-xi.on { background: #e1edf7; color: #0a78be; font-weight: 700; }
+.fr-x .fr-xhr { flex: none; width: calc(100% - 20px); height: 1px; margin: 17px 10px 14px; border: 0; background: #d8dbdf; }
+.fr-x .fr-xhr.b { margin: 0 10px 9px; }
+.fr-x .fr-xfill { flex: 1 1 auto; min-height: 8px; }
+.fr-x .fr-xrow { flex: none; display: flex; gap: 8px; padding: 0 0 9px 12px; }
+.fr-x .fr-xrow .fr-i { position: relative; left: auto; top: auto; flex: none; width: 40px; height: 40px; }

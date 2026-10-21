@@ -1,0 +1,159 @@
+/* When and where ads showed: page header (pickers, filters, title bar, tabs). Sizes are the
+   reference screenshots' (taken at 125%) divided by 1.25. The shared looks (.viewsel, .filterbar,
+   .chip, .titlebar, .iconbtn.arrow, .link-btn) come from styles.css; this file holds what differs.
+   The page has 24px of padding on the left and none on the right (.ww-page). */
+
+/* ---------- Row 1: view and campaign pickers ---------- */
+/* With the page's 8px top padding, 12px above the pickers. */
+.ww-viewbar { padding-top: 4px; }
+.viewsel.ww-viewsel[aria-expanded=true] { background: #e8f0fe; }
+.ww-tile, .ww-home, .ww-status, .ww-feedback-ic { flex: none; display: block; }
+.ww-campsel { max-width: 420px; }
+.ww-campsel .vs-main { max-width: 100%; overflow: hidden; }
+.ww-campsel-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+
+/* Menus and panels share one elevation. */
+.ww-vpanel, .ww-cpanel, .ww-sf, .ww-af-menu {
+  background: #fff; border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(60,64,67,.3), 0 2px 6px 2px rgba(60,64,67,.15);
+}
+
+/* "Select view" panel: hangs straight under the View card. */
+.popover.ww-vp-pop { top: 100%; }
+.ww-vpanel { width: 520px; height: 429px; max-height: var(--pop-max, 429px); display: flex; flex-direction: column; overflow: hidden; }
+.ww-vp-head { flex: none; display: flex; align-items: center; justify-content: space-between; height: 65px; padding: 0 20px 0 16px; border-bottom: 1px solid #dadce0; }
+.ww-vp-title { font-size: 17px; font-weight: 400; color: #202124; }
+.toolbtn.ww-vp-feedback { color: #5f6368; }
+.ww-vp-list { flex: 1; min-height: 0; overflow-y: auto; }
+.ww-vp-label { height: 32px; line-height: 32px; padding-left: 24px; font-size: 12px; color: #757575; }
+.ww-vp-item { display: flex; align-items: center; gap: 8.8px; width: 100%; height: 48px; padding: 0 16px 0 18.4px; font-size: 15px; color: #3c4043; text-align: left; white-space: nowrap; }
+.ww-ic-slot { flex: none; width: 20.8px; display: inline-flex; justify-content: center; }
+.ww-vp-foot { flex: none; display: flex; align-items: center; gap: 8px; width: 100%; height: 65px; padding: 0 0 0 24px; border-top: 1px solid #dadce0; font-size: 15px; font-weight: 500; color: #1a73e8; text-align: left; }
+.ww-vp-foot .ic { font-size: 18px; }
+.ww-vp-foot:hover { background: #f6fafe; }
+
+/* Campaign panel: opens over the Campaigns card (.camp-pop). */
+.ww-cpanel { width: 520px; height: 429px; max-height: var(--pop-max, 429px); display: flex; flex-direction: column; overflow: hidden; }
+.ww-cp-filter { flex: none; display: flex; align-items: center; height: 49px; padding: 0 16px 0 9px; border-bottom: 1px solid #dadce0; }
+.ww-cp-funnel { position: relative; flex: none; width: 24px; height: 24px; color: #5f6368; }
+.ww-cp-funnel .ic { display: block; font-size: 24px; }
+.ww-cp-funnel .badge { top: -7px; right: auto; left: 12px; }
+.ww-cp-chip { margin-left: 32px; display: inline-flex; align-items: center; height: 32px; padding: 0 12px; border: 1px solid #dadce0; border-radius: 16px; background: #f7f8f8; font-size: 13px; font-weight: 500; color: #202124; white-space: nowrap; }
+.ww-cp-add { margin-left: 12px; font-size: 13px; color: #757575; white-space: nowrap; }
+.ww-cp-search { flex: none; display: flex; align-items: stretch; height: 49px; border-bottom: 1px solid #dadce0; }
+.ww-cp-search label { flex: 1; min-width: 0; display: flex; align-items: center; gap: 6px; padding: 0 12px 0 10px; color: #5f6368; }
+.ww-cp-search input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font-size: 15px; color: #202124; }
+.ww-cp-search input::placeholder { color: #5f6368; opacity: 1; }
+.dd.ww-cp-sortdd { align-self: stretch; }
+.ww-cp-sort { display: inline-flex; align-items: center; height: 100%; padding: 0 7px 0 17px; border-left: 1px solid #dadce0; font-size: 15px; color: #3c4043; white-space: nowrap; }
+.ww-cp-sort .ic { color: #3c4043; }
+.ww-cp-sort .ww-caret { color: #5f6368; }
+.ww-cp-sort:hover, .ww-cp-sort[aria-expanded=true] { background: #f8f9fa; }
+.ww-hd-menu { min-width: 140px; }
+.ww-hd-menu .menu-item { font-size: 13px; color: #212121; }
+.ww-cp-list { flex: 1; min-height: 0; overflow-y: auto; }
+.ww-cp-row { display: flex; align-items: center; height: 48px; padding: 0 16px; font-size: 15px; color: #3c4043; white-space: nowrap; cursor: pointer; outline: 0; }
+.ww-cp-all { color: #1f1f1f; }
+.ww-cp-st { flex: none; display: inline-flex; margin-right: 17.6px; }
+.ww-cp-type { flex: none; display: inline-flex; margin-right: 18.4px; }
+.ww-cp-name { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+/* Admin: the status and type icons are double-clicked to change them; the hover ring hugs the icon. */
+.ww-cp-st .editable, .ww-cp-type .editable { display: inline-flex; }
+.ww-cp-st .editable { border-radius: 50%; }
+.ww-cp-row .inline-select { height: 28px; font-size: 13px; }
+.ww-cp-empty { padding: 20px 16px; font-size: 14px; color: #5f6368; }
+
+/* List rows of both panels. */
+.ww-vp-item:hover, .ww-vp-item:focus-visible, .ww-cp-row:hover, .ww-cp-row:focus-visible { background: #f1f3f4; outline: 0; }
+.ww-vp-item.selected, .ww-cp-row.selected { background: #e8f0fe; }
+.ww-vp-item.selected:hover, .ww-vp-item.selected:focus-visible, .ww-cp-row.selected:hover, .ww-cp-row.selected:focus-visible { background: #e0ecfd; }
+
+/* ---------- Row 2: filters ---------- */
+/* The divider runs to the window edge; Save sits 8px in from it, its icon 24px. */
+.filterbar.ww-filterbar { padding-right: 8px; }
+.ww-filterbar .save-btn { position: relative; top: -2px; }
+.ww-filterbar .save-btn .ic { font-size: 24px; }
+/* Save on hover (reference): a grey box, and a dark "Save workspace" label under it, right-aligned. */
+.ww-save { position: relative; display: inline-flex; }
+.ww-filterbar .save-btn:hover, .ww-filterbar .save-btn:focus-visible { background: #e7e8e8; outline: 0; }
+.ww-save-tip {
+  display: none; position: absolute; top: calc(100% + 6px); right: 8px; z-index: 30; pointer-events: none;
+  padding: 4px 8px; border-radius: 4px; background: #202124; color: #fff; font-size: 12px; font-weight: 500; line-height: 16px; white-space: nowrap;
+}
+.ww-save:hover .ww-save-tip, .ww-save:focus-within .ww-save-tip { display: block; animation: tipIn .15s ease .3s both; }
+.filterbar .chip.ww-chip[aria-expanded=true] { background: #e0ecfd; border-color: #e0ecfd; color: #1967d2; }
+
+/* Status popover: left-aligned with its chip, 8px below it. */
+.popover.ww-sf-pop { top: calc(100% + 8px); }
+.ww-sf { width: max-content; min-width: 200px; }
+.ww-sf-head { display: flex; align-items: center; gap: 8px; height: 64px; padding: 0 8px 0 16px; }
+.ww-sf-title { flex: 1; font-size: 18px; font-weight: 400; color: #202124; white-space: nowrap; }
+.ww-sf-opt { display: flex; align-items: center; width: 100%; height: 48px; padding: 0 24px; font-size: 13px; color: #212121; text-align: left; white-space: nowrap; }
+.ww-sf-opt:last-child { border-radius: 0 0 4px 4px; }
+.ww-sf-opt:hover, .ww-sf-opt:focus-visible { background: #f1f3f4; outline: 0; }
+.ww-sf-opt.selected { background: #e8f0fe; }
+.ww-sf-opt.selected:hover, .ww-sf-opt.selected:focus-visible { background: #e0ecfd; }
+.ww-close { position: relative; flex: none; width: 48px; height: 48px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: #5f6368; }
+.ww-close:hover, .ww-close:focus-visible { background: #e7e8e8; outline: 0; }
+/* Dark label under the close button. */
+.ww-hd-tip {
+  display: none; position: absolute; top: calc(100% + 8px); left: 50%; transform: translateX(-50%); z-index: 1; pointer-events: none;
+  padding: 4px 8px; border-radius: 4px; background: #202124; color: #fff; font-size: 12px; font-weight: 500; line-height: 16px; white-space: nowrap;
+}
+.ww-close:hover .ww-hd-tip, .ww-close:focus-visible .ww-hd-tip { display: block; animation: tipIn .15s ease .3s both; }
+
+/* "Add filter" list: under the link, scrolls. */
+.popover.ww-af-pop { left: 4px; }
+.ww-af-menu { width: 200px; max-height: min(320px, var(--pop-max, 320px)); overflow-y: auto; padding: 16px 0 8px; }
+.ww-mi { display: flex; align-items: center; width: 100%; height: 48px; padding: 0 24px; font-size: 13px; color: #212121; text-align: left; white-space: nowrap; }
+.ww-mi:hover, .ww-mi:focus-visible { background: #e7e8e8; outline: 0; }
+
+/* ---------- Row 3: title bar ---------- */
+/* Full width (the page has no right padding); the date cluster ends 24px from the edge. */
+.titlebar.ww-titlebar { margin: 0 0 0 -24px; padding: 0 24px; gap: 0; }
+.ww-tb-title { display: flex; align-items: center; align-self: stretch; gap: 8px; min-width: 0; }
+.ww-tb-title h1 { white-space: nowrap; }
+.titlebar .viewsel.mini.ww-mini { margin: 4px 0 0 8px; }
+.ww-tb-dates { flex: none; display: flex; align-items: center; gap: 8px; }
+.ww-tb-dates .ww-prev { margin-left: -3px; }
+
+/* Matched locations: the title (44px row, indented to the tab text) over the tabs, the dates
+   centred beside both; one divider under the whole block. */
+/* Matched locations (shots 89–91): the title and tabs scroll away; only the toolbar stays on top. */
+.titlebar.ww-titlebar.split { height: auto; padding-bottom: 1px; position: relative; top: auto; }
+.titlebar.ww-titlebar.split::after { content: ''; position: absolute; left: 24px; right: 0; bottom: 0; height: 1px; background: #dadce0; }
+.ww-tb-stack { display: flex; flex-direction: column; min-width: 0; }
+.split .ww-tb-title { height: 44px; padding-left: 16px; }
+.split .ww-tabs { height: 48px; border-bottom: 0; }
+.titlebar.split .viewsel.mini.ww-mini { align-self: center; height: 40px; margin-top: 0; padding-top: 2px; }
+
+/* ---------- Tabs ---------- */
+.ww-tabs { display: flex; height: 49px; border-bottom: 1px solid #dadce0; }
+.ww-tab { flex: none; display: inline-flex; align-items: stretch; height: 48px; padding: 0 16px; border-radius: 3px; font-size: 14px; font-weight: 500; letter-spacing: .4px; color: #5f6368; white-space: nowrap; }
+.ww-tab-label { position: relative; display: inline-flex; align-items: center; }
+.ww-tab:hover { background: #eaeced; color: #202124; }
+.ww-tab.active { color: #1967d2; }
+/* The active underline: label width, rounded top, at the bottom of the tab (a 3px border, so it
+   snaps to whole device pixels as in the reference). */
+.ww-tab.active .ww-tab-label::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; border-top: 3px solid #1967d2; border-radius: 3px 3px 0 0; }
+.ww-tab:focus-visible { outline: 1px solid #1968d4; outline-offset: -1px; background: #d7e3f2; border-radius: 4px; }
+
+/* ---------- Campaign panel, admin ---------- */
+/* A campaign's trash can at the end of its row, shown on hover. */
+.ww-cp-del {
+  flex: none; margin-left: auto; width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center;
+  color: #5f6368; opacity: 0;
+}
+.ww-cp-del .ic { font-size: 20px; }
+/* Admins' long names stop short of it. */
+.ww-cp-name:has(+ .ww-cp-del) { padding-right: 8px; }
+.ww-cp-row:hover .ww-cp-del, .ww-cp-row:focus-within .ww-cp-del, .ww-cp-del:focus-visible { opacity: 1; }
+.ww-cp-del:hover { background: #fce8e6; color: #d93025; }
+.ww-cp-del:focus-visible { outline: 2px solid #1a73e8; outline-offset: -2px; }
+/* "+ New campaign" under the list, in the look of the view panel's "Create view". */
+.ww-cp-foot {
+  flex: none; display: flex; align-items: center; gap: 8px; width: 100%; height: 56px; padding: 0 0 0 16px; border-top: 1px solid #dadce0;
+  font-size: 15px; font-weight: 500; color: #1a73e8; text-align: left;
+}
+.ww-cp-foot .ic { font-size: 24px; }
+.ww-cp-foot:hover, .ww-cp-foot:focus-visible { background: #f6fafe; outline: 0; }

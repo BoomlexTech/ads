@@ -1,0 +1,29 @@
+/* ======================================================================
+   Global tooltip look (Ads Manager): every element that carries a data-tip attribute shows
+   a small white card ABOVE it, left edge aligned with the element, after a short hover delay.
+   Measured from the reference screenshots (design px = screenshot px / 1.125):
+     card 40 px high, 12 px side padding, radius 6, text 16px / 400 / #1c2b33,
+     soft shadow, 9 px gap to the element.
+   Custom properties an element may set:
+     --tip-x    horizontal offset of the card's left edge from the element's left edge (default 0)
+     --tip-gap  gap between card and element (default 9px; negative = overlap)
+   fid-tip.js sets --tip-dx on hover so the card never leaves the window.
+   This file is loaded after styles.css, so it replaces the older `right: 0` tooltip rule.
+   ====================================================================== */
+[data-tip] { position: relative; }
+[data-tip]:hover::after {
+  content: attr(data-tip);
+  position: absolute; z-index: 200;
+  left: calc(var(--tip-x, 0px) + var(--tip-dx, 0px)); right: auto; top: auto;
+  bottom: calc(100% + var(--tip-gap, 9px));
+  box-sizing: border-box; width: max-content; max-width: none;
+  padding: 10px 12px; border-radius: 6px;
+  background: #fff; color: #1c2b33;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, .25);
+  font: 400 16px/20px var(--font); letter-spacing: 0; text-align: left; white-space: nowrap;
+  pointer-events: none;
+  animation: fid-tip-in .12s ease-out .4s both;
+}
+/* a split button that owns a dropdown (Duplicate): the card goes away while the pointer is on the open dropdown */
+[data-tip]:has(> .pop-anchor > .pop:hover)::after { display: none; }
+@keyframes fid-tip-in { from { opacity: 0; } to { opacity: 1; } }

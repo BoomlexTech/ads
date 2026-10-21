@@ -1,0 +1,31 @@
+# Coolify "Docker Compose" service for the AdPilot demo.
+# Coolify fills ${...} from the service's environment variables and routes the domain to port 3000.
+# Data lives in MongoDB Atlas (MONGO_URI, database MONGO_DB) and media in Cloudinary.
+services:
+  app:
+    build:
+      context: /opt/adpilot-demo
+    restart: unless-stopped
+    environment:
+      - SERVICE_FQDN_APP_3000
+      - NODE_ENV=production
+      - PORT=3000
+      - MONGO_URI=${MONGO_URI}
+      - MONGO_DB=${MONGO_DB:-google-ads-demo}
+      - CLOUDINARY_CLOUD_NAME=${CLOUDINARY_CLOUD_NAME}
+      - CLOUDINARY_API_KEY=${CLOUDINARY_API_KEY}
+      - CLOUDINARY_API_SECRET=${CLOUDINARY_API_SECRET}
+      - CLOUDINARY_FOLDER=${CLOUDINARY_FOLDER:-google-ads-demo}
+      - ADMIN_USERNAME=${ADMIN_USERNAME}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD}
+      - VIEWER_USERNAME=${VIEWER_USERNAME}
+      - VIEWER_PASSWORD=${VIEWER_PASSWORD}
+      - JWT_SECRET=${JWT_SECRET}
+      # 1 = admin site on /admin (default). Set to 0 for a viewer-only site.
+      - ADMIN_ENABLED=${ADMIN_ENABLED:-1}
+    healthcheck:
+      test: ["CMD", "node", "server/healthcheck.js"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 30s

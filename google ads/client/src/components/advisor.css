@@ -1,0 +1,90 @@
+/* ---------- Ask Advisor chat panel (panel frame, header and messages: styles.css) ---------- */
+
+/* Dark labels on the panel's icon buttons */
+.advisor .iconbtn[data-tip]:hover::after {
+  content: attr(data-tip);
+  position: absolute; top: calc(100% + 4px); left: 50%; transform: translateX(-50%); z-index: 60; pointer-events: none;
+  background: var(--tip); color: #e8eaed; font-family: var(--font); font-size: 12px; line-height: 16px; font-weight: 500;
+  padding: 4px 8px; border-radius: 4px; white-space: nowrap;
+  animation: tipIn .15s ease .6s both;
+}
+.adv-head .iconbtn[data-tip]:hover::after { left: auto; right: 0; transform: none; }
+.adv-head .iconbtn.on[aria-expanded="true"]:hover::after { display: none; }
+/* Above the button, so a label near the bottom never stretches the scrolling area */
+.adv-votes .iconbtn[data-tip]:hover::after, .adv-input .iconbtn[data-tip]:hover::after { top: auto; bottom: calc(100% + 4px); left: auto; right: 0; transform: none; }
+
+/* Inline text links that act in the page (Quick help, retry, clear) */
+.adv-link { color: var(--blue); font-size: inherit; line-height: inherit; text-align: left; }
+.adv-link:hover { text-decoration: underline; }
+
+/* The reader's own messages keep their line breaks (Shift+Enter) */
+.advisor .adv-msg.me { white-space: pre-wrap; overflow-wrap: anywhere; }
+
+/* Welcome message */
+.adv-start { padding-top: 8px; }
+.advisor .adv-intro { margin: 0 0 16px; }
+
+/* Last 30 days snapshot */
+.advisor .adv-snap { padding: 12px 16px 8px; margin-bottom: 12px; }
+.adv-snap-title { font-size: 13px; font-weight: 500; color: var(--text2); margin: 0 0 8px; }
+.adv-snap-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.adv-snap-stat { min-width: 0; cursor: default; }
+.adv-snap .adv-label { font-size: 12px; line-height: 16px; color: var(--muted); }
+.adv-snap .adv-value { font-size: 18px; line-height: 24px; margin-top: 2px; overflow-wrap: anywhere; }
+.adv-delta { display: flex; align-items: center; gap: 2px; font-size: 12px; line-height: 16px; color: var(--text2); margin-top: 2px; }
+.adv-delta .ic { font-size: 14px; color: var(--muted); }
+.adv-snap-foot { font-size: 12px; line-height: 16px; color: var(--muted); margin: 10px 0 0; }
+
+/* Insight cards */
+.adv-insight { border: 1px solid var(--line); border-radius: 8px; padding: 12px 12px 6px 16px; margin-bottom: 12px; }
+.adv-ins-head { display: flex; align-items: flex-start; gap: 10px; }
+.adv-ins-head h4 { font-size: 14px; line-height: 20px; font-weight: 500; color: var(--text); margin: 0; }
+.adv-ins-icon { flex: none; display: inline-flex; color: var(--blue); }
+.adv-ins-icon .ic { font-size: 20px; }
+.tone-err .adv-ins-icon { color: var(--red); }
+.tone-warn .adv-ins-icon { color: #e37400; }
+.tone-tip .adv-ins-icon { color: #f9ab00; }
+.tone-good .adv-ins-icon { color: var(--green); }
+.adv-ins-text { font-size: 13px; line-height: 20px; color: var(--text2); margin: 6px 0 2px 30px; }
+.adv-insight .adv-follow { margin-left: 30px; }
+.adv-ins-foot { display: flex; align-items: center; justify-content: flex-end; gap: 4px; margin-top: 2px; }
+.adv-ins-ask { font-size: 12px; color: var(--muted); }
+.adv-votes { display: flex; gap: 2px; }
+.adv-votes .iconbtn { color: var(--muted); }
+.adv-votes .iconbtn.on { color: var(--blue); background: var(--blue-soft); }
+
+/* Follow-up questions (insight cards, the snapshot and answers) */
+.adv-follow { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; margin: 4px 0; }
+.adv-follow-link { font-size: 13px; line-height: 18px; font-weight: 500; color: var(--blue-dark); text-align: left; padding: 3px 0; }
+.adv-follow-link:hover { text-decoration: underline; }
+.adv-msg.bot .adv-follow { margin-top: 8px; }
+
+/* Suggestions under an answer's figures (one ad or one campaign) */
+.adv-tips { margin: 12px 0 0; }
+.advisor .adv-tips h4 { font-size: 13px; line-height: 20px; font-weight: 500; color: var(--text2); margin: 0 0 4px; }
+.adv-tips ul { margin: 0; padding: 0 0 0 18px; }
+.adv-tips li { font-size: 13px; line-height: 20px; color: var(--text); margin: 0 0 6px; overflow-wrap: anywhere; }
+.adv-tips li::marker { color: var(--muted); }
+.adv-tips .adv-link { font-size: 13px; }
+.adv-rows li span, .adv-rows li b { overflow-wrap: anywhere; }
+.advisor .adv-msg.bot .adv-note-stale { font-size: 12px; line-height: 16px; color: var(--muted); margin: 8px 0 0; }
+
+/* Earlier questions */
+.adv-hist-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: 8px 0 4px; }
+.advisor .adv-hist-head h3 { margin: 0; }
+.adv-hist-head .adv-link { font-size: 13px; }
+.adv-hist-item span { min-width: 0; overflow-wrap: anywhere; }
+.adv-hist-note { font-size: 12px; line-height: 16px; color: var(--muted); margin: 12px 0 0; }
+
+/* Message box and footer line */
+.adv-bottom { flex: none; border-top: 1px solid var(--line2); }
+.advisor .adv-input { align-items: flex-end; padding: 12px 16px 6px 20px; }
+.adv-input textarea {
+  flex: 1; display: block; min-width: 0; min-height: 48px; max-height: 120px; resize: none; overflow-y: auto; scrollbar-width: thin;
+  border: 2px solid var(--blue); border-radius: 24px; padding: 12px 16px; outline: 0;
+  font: inherit; font-size: 14px; line-height: 20px; color: var(--text); background: #fff;
+}
+.adv-input textarea::placeholder { color: var(--muted); }
+.advisor .adv-input .iconbtn { margin-bottom: 4px; }
+.adv-foot { margin: 0; padding: 0 20px 12px; font-size: 11px; line-height: 16px; color: var(--muted); text-align: center; }
+.adv-error .adv-link { font-size: 13px; }

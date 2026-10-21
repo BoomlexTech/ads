@@ -1,0 +1,192 @@
+/* When and where ads showed: the table toolbar, its menus and the Download dialog. Sizes are CSS px
+   (the reference screenshots were taken at 125%: screenshot px / 1.25). */
+
+/* ---------- Bar ---------- */
+/* 56 tall plus its 1px bottom border. */
+.ww-toolbar { position: relative; display: flex; align-items: center; height: 57px; padding: 0 0 0 20px; background: #fff; border-bottom: 1px solid #dadce0; font-family: var(--font); }
+.ww-toolbar.ww-sticky { position: sticky; top: var(--ww-title-h, var(--title-h)); z-index: 15; }
+/* While a filter editor is open the bar is a little shorter and its row sits at the top. */
+.ww-toolbar.editing { height: 55px; align-items: flex-start; }
+.ww-tb-space { flex: 1; }
+
+/* Admin: the + (create) button before the funnel, as on the ads tables: a blue disc that sits on
+   the card's top edge, half over the chart, until the toolbar pins. Its label opens to the right. */
+.dd.ww-fab-dd { flex: none; align-self: center; }
+.ww-fab {
+  position: relative; z-index: 16; width: 40px; height: 40px; border-radius: 50%; background: var(--blue); color: #fff;
+  display: flex; align-items: center; justify-content: center; transition: transform .15s;
+  box-shadow: 0 1px 3px rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15);
+}
+.ww-fab .ic { font-size: 30px; }
+.ww-fab:hover { background: var(--blue-dark); }
+.ww-fab:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.ww-fab.lift { transform: translateY(-29px); }
+.ww-fab[data-tip]:hover::after {
+  content: attr(data-tip); position: absolute; left: calc(100% + 10px); top: 50%; transform: translateY(-50%); z-index: 60; pointer-events: none;
+  padding: 6px 10px; border-radius: 4px; background: #202124; color: #fff; font-size: 13px; font-weight: 500; line-height: 18px;
+  letter-spacing: .25px; white-space: nowrap; animation: ww-tip-in .15s ease .3s both;
+}
+
+/* Funnel: blue with a count badge when a filter is on, grey otherwise. */
+.ww-tb-funnel { position: relative; flex: none; width: 48px; height: 48px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: #5f6368; }
+.ww-tb-funnel.on { color: #1a73e8; }
+.ww-tb-funnel:hover, .ww-tb-funnel.open { background: #f7f8f8; }
+.ww-tb-funnel .ic { font-size: 24px; }
+.ww-tb-badge { position: absolute; left: 24px; top: 6px; min-width: 18px; height: 18px; padding: 0 5px; border-radius: 9px; background: #1a73e8; color: #fff; box-shadow: 0 0 0 1px #fff; font-size: 12px; font-weight: 500; line-height: 18px; text-align: center; }
+
+/* "Level: Campaign": an outlined chip; filled light blue while its popover is open. */
+.ww-tb-chip { flex: none; margin-left: 32px; height: 32px; padding: 0 12px; border: 1px solid #dadce0; border-radius: 16px; background: #fff; color: #5f6368; font-size: 13px; font-weight: 500; line-height: 30px; white-space: nowrap; }
+.ww-tb-chip:hover { background: #f8f9fa; }
+.ww-tb-chip.open { background: #e0ecfd; border-color: #e0ecfd; color: #1967d2; }
+.ww-toolbar.editing .ww-tb-chip { margin-top: 8px; }
+
+.ww-tb-add { flex: none; margin-left: 31px; padding: 4px; border-radius: 4px; font-size: 15px; line-height: 20px; color: #5f6368; white-space: nowrap; }
+.ww-tb-chip + .ww-tb-add { margin-left: 25px; }
+.ww-tb-add:hover { color: #202124; }
+/* Filter editor open: "Add filter" turns into a small grey placeholder right after the chip. */
+.ww-toolbar.editing .ww-tb-add { margin-top: 10px; font-size: 13px; color: #757575; }
+.ww-toolbar.editing .ww-tb-chip + .ww-tb-add { margin-left: 9px; }
+/* Its own menu takes its place while open. */
+.ww-tb-add.open { visibility: hidden; }
+
+/* Icon over a label. The shaded box is the label plus 9px a side (Search is a little further
+   from Segment than the others are from each other). */
+.ww-tbtn { position: relative; flex: none; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; height: 54px; margin: 0 4px; padding: 0 9px; border-radius: 4px; color: #5f6368; font-size: 12px; font-weight: 500; line-height: 14px; white-space: nowrap; }
+.ww-tbtn .ic { font-size: 24px; }
+.ww-tb-svg { flex: none; display: block; }
+.ww-tbtn:hover { background: #e7e8e8; }
+.ww-tbtn.open, .ww-tbtn.active:not(:hover) { background: #f7f8f8; }
+.ww-tbtn.ww-tb-search { margin-right: 8px; }
+.ww-toolbar.editing .ww-tb-close { height: 52px; }
+
+/* "Day & hour ▾" / "Account view ▾". */
+.ww-tb-select { flex: none; display: inline-flex; align-items: center; height: 40px; padding: 0 12px; border-radius: 4px; color: #5f6368; font-size: 15px; white-space: nowrap; }
+.ww-tb-select .ic { font-size: 24px; }
+.ww-tb-select:hover, .ww-tb-select.open { background: #f7f8f8; }
+
+.ww-tb-sep { flex: none; width: 1px; height: 32px; margin: 0 8px; background: #dadce0; }
+.ww-tb-chev { position: relative; flex: none; width: 48px; height: 48px; margin: 0 4px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: #5f6368; }
+.ww-tb-chev:hover { background: rgba(60,64,67,.08); }
+.ww-tb-chev .ic { font-size: 24px; }
+
+/* Where ads showed: "Find placements" box over the right of the table header. */
+.ww-tb-find { position: absolute; z-index: 5; top: calc(100% + 2px); right: 16px; width: 400px; max-width: calc(100% - 32px); padding-bottom: 8px; background: #fff; border-radius: 4px; box-shadow: 0 1px 3px rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15); }
+.ww-tb-find-box { display: flex; align-items: center; gap: 12px; height: 44px; padding: 0 6px 0 12px; border: 2px solid #1a73e8; border-radius: 4px; color: #5f6368; }
+.ww-tb-find-box .ic { font-size: 24px; }
+.ww-tb-find-box input { flex: 1; min-width: 0; height: 100%; border: 0; outline: 0; background: transparent; font-size: 14px; color: #202124; }
+.ww-tb-find-box input::placeholder { color: #757575; }
+.ww-tb-find-x { flex: none; width: 32px; height: 32px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: #5f6368; }
+.ww-tb-find-x:hover { background: rgba(60,64,67,.08); }
+.ww-tb-find-x .ic { font-size: 20px; }
+
+/* Advisor open (narrow page): icons only, as the Ads toolbar does. */
+.with-advisor .ww-tbtn { padding: 0 6px; }
+.with-advisor .ww-tbtn > span:not(.ic) { display: none; }
+
+/* ---------- Dark hover labels ("Collapse table", "Close") ---------- */
+.ww-tipped { position: relative; }
+.ww-tipped[data-ww-tip]:hover::after, .ww-tipped[data-ww-tip]:focus-visible::after {
+  content: attr(data-ww-tip); position: absolute; z-index: 70; top: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  height: 24px; padding: 0 8px; border-radius: 4px; background: #202124; color: #fff;
+  font-family: var(--font); font-size: 12px; font-weight: 500; line-height: 24px; letter-spacing: .25px; white-space: nowrap; pointer-events: none;
+  animation: ww-tip-in .15s ease .4s both;
+}
+/* The chart toggle sits at the card's right edge: its label opens leftward. */
+.ww-tb-chev.ww-tipped:hover::after, .ww-tb-chev.ww-tipped:focus-visible::after { left: auto; right: 0; transform: none; }
+@keyframes ww-tip-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* ---------- Menus and popovers (a layer over the window, placed by the script) ---------- */
+.ww-pop { position: fixed; top: 0; left: 0; z-index: 60; visibility: hidden; background: #fff; border-radius: 4px; box-shadow: 0 1px 3px rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15); }
+.ww-pop.ww-over-dialog { z-index: 110; }
+.ww-menu { padding: 8px 0; font-family: var(--font); }
+.ww-menu .menu-item { min-height: 48px; height: 48px; padding: 0 24px; gap: 0; font-size: 13px; color: #212121; outline: 0; }
+.ww-menu .menu-item:hover:not(:disabled), .ww-menu .menu-item:focus:not(:disabled) { background: #e7e8e8; }
+.ww-menu .menu-item.selected { background: #e8f0fe; }
+.ww-menu .menu-item.selected:hover, .ww-menu .menu-item.selected:focus { background: #e0ecfd; }
+.ww-menu .menu-item:disabled { color: #9e9e9e; cursor: default; }
+.ww-menu .mi-sub { font-size: 24px; color: #757575; margin-right: 0; }
+.ww-menu-title { height: 24px; padding: 0 24px; font-size: 12px; line-height: 24px; color: #757575; white-space: nowrap; }
+.ww-menu-sep { height: 1px; margin: 8px 0; background: #dadce0; }
+.ww-menu-empty { padding: 12px 24px; font-size: 13px; color: #5f6368; white-space: nowrap; }
+
+/* Submenus: flush against the menu's right edge; the row that opened one stays shaded. */
+.ww-sub { position: relative; }
+.ww-sub.open > .menu-item { background: #e0e2e2; }
+.ww-submenu { position: absolute; top: 0; left: 100%; z-index: 1; background: #fff; border-radius: 4px; box-shadow: 0 1px 3px rgba(60,64,67,.3), 0 4px 8px 3px rgba(60,64,67,.15); }
+.ww-submenu.ww-left { left: auto; right: 100%; }
+
+/* Funnel menu: the filters that are on. */
+.ww-menu.ww-funnel-menu { min-width: 128px; padding: 16px 0; }
+.ww-funnel-menu .menu-item { padding: 0 16px; color: #3c4043; }
+
+/* Add filter: search row, collapsible column sections, then plain rows. */
+.ww-menu.ww-addf { width: 206px; padding: 0 0 14px; }
+.ww-menu-search { display: flex; align-items: center; height: 41px; padding: 0 8px 0 24px; border-bottom: 1px solid #dadce0; color: #5f6368; cursor: text; }
+.ww-menu-search:focus-within { border-bottom-color: #4285f4; }
+.ww-menu-search .ic { font-size: 24px; }
+.ww-menu-input { flex: 1; min-width: 0; height: 100%; border: 0; outline: 0; background: transparent; font-size: 13px; color: #202124; }
+.ww-menu-input::placeholder { color: #757575; }
+.ww-addf-secs { padding-top: 4px; }
+.ww-addf-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; height: 40px; padding: 0 20px 0 24px; font-size: 15px; color: #757575; text-align: left; outline: 0; }
+.ww-addf-head:hover, .ww-addf-head:focus { background: #f5f5f5; }
+.ww-addf-head .ic { font-size: 32px; }
+.ww-addf-sec .menu-item { height: auto; min-height: 40px; padding: 8px 24px 8px 40px; line-height: 18px; white-space: normal; color: #202124; }
+.ww-addf-plain { padding-top: 6px; }
+.ww-addf-plain .menu-item, .ww-addf-hits .menu-item { color: #202124; }
+.ww-addf-hits .menu-item { height: auto; min-height: 40px; padding-top: 8px; padding-bottom: 8px; line-height: 18px; white-space: normal; }
+
+/* ---------- Level popover ---------- */
+.ww-level { width: 192px; padding-bottom: 8px; outline: 0; color: #3c4043; font-family: var(--font); }
+.ww-level-head { display: flex; align-items: center; justify-content: space-between; height: 64px; padding: 8px 8px 8px 16px; }
+.ww-level-title { font-size: 17px; color: #202124; }
+.ww-round { position: relative; flex: none; width: 48px; height: 48px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: #5f6368; outline: 0; }
+.ww-round:hover, .ww-round:focus-visible { background: #e7e8e8; }
+.ww-round .ic { font-size: 22px; }
+.ww-level-note { margin-top: 9px; padding-left: 16px; font-size: 13px; line-height: 20px; }
+.ww-level-list { margin: 7px 0 36px; }
+.ww-level-foot { display: flex; justify-content: flex-end; padding-right: 8px; }
+.ww-text-btn { height: 36px; padding: 0 8px; border-radius: 4px; color: #1a73e8; font-size: 14px; font-weight: 500; letter-spacing: .25px; }
+.ww-text-btn:hover:not(:disabled) { background: #f6fafe; }
+.ww-text-btn:disabled { color: #9aa0a6; }
+
+/* Checkbox rows: an 18px box in a round 40px touch area, then the label. */
+.ww-check { display: flex; align-items: center; height: 40px; padding-left: 8px; font-size: 13px; color: #3c4043; cursor: pointer; user-select: none; }
+.ww-check-hit { flex: none; width: 40px; height: 40px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; }
+.ww-check:hover .ww-check-hit { background: rgba(32,33,36,.04); }
+.ww-cb { appearance: none; -webkit-appearance: none; flex: none; display: grid; place-content: center; width: 18px; height: 18px; margin: 0; border: 2px solid #5f6368; border-radius: 2px; background: #fff; cursor: inherit; }
+.ww-check:hover .ww-cb:not(:checked) { border-color: #202124; }
+.ww-cb:checked { background: #1a73e8; border-color: #1a73e8; }
+.ww-cb:checked::after { content: ''; width: 10px; height: 5px; border: solid #fff; border-width: 0 0 2px 2px; transform: translateY(-1px) rotate(-45deg); }
+.ww-cb:focus-visible { outline: 2px solid #1a73e8; outline-offset: 2px; }
+
+/* ---------- Download dialog ---------- */
+.ww-dl-scrim { position: fixed; inset: 0; z-index: 99; display: flex; align-items: center; justify-content: center; background: rgba(32,33,36,.6); }
+.ww-dl { width: 424px; max-width: calc(100vw - 32px); max-height: calc(100vh - 32px); overflow-y: auto; padding: 32px 20px 16px 32px; background: #fff; border-radius: 8px; outline: 0; color: #3c4043; font-family: var(--font); box-shadow: 0 11px 15px -7px rgba(0,0,0,.2), 0 24px 38px 3px rgba(0,0,0,.14), 0 9px 46px 8px rgba(0,0,0,.12); }
+.ww-dl-title { margin: 0; font-size: 22px; font-weight: 400; line-height: 28px; color: #202124; }
+.ww-dl-select { position: relative; display: flex; align-items: center; width: 160px; height: 48px; margin-top: 16px; padding: 0 36px 0 16px; border: 1px solid #80868b; border-radius: 4px; background: #fff; font-size: 13px; color: #3c4043; text-align: left; outline: 0; }
+.ww-dl-select .ic { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); font-size: 24px; color: #5f6368; }
+.ww-dl-select:hover { border-color: #202124; }
+.ww-dl-select.open, .ww-dl-select:focus-visible { padding-left: 15px; border: 2px solid #1a73e8; }
+.ww-dl-select.open .ic, .ww-dl-select:focus-visible .ic { right: 7px; color: #1a73e8; }
+.ww-check.ww-dl-check { height: 32px; padding-left: 0; font-size: 14px; letter-spacing: .2px; }
+.ww-dl-check .ww-check-hit { width: 24px; height: 24px; margin-right: 8px; }
+.ww-dl-select + .ww-dl-check { margin-top: 4px; }
+.ww-dl-label { display: flex; align-items: center; gap: 6px; margin-top: 5px; font-size: 13px; line-height: 20px; color: #5f6368; }
+.ww-dl-check + .ww-dl-label { margin-top: 7px; }
+.ww-dl-help { display: inline-flex; border-radius: 50%; color: #5f6368; outline: 0; cursor: default; }
+.ww-dl-help .ic { font-size: 16px; }
+.ww-dl-help.ww-tipped:hover::after, .ww-dl-help.ww-tipped:focus-visible::after { left: 0; transform: none; }
+.ww-dl-segs { display: flex; align-items: center; width: 360px; max-width: 100%; height: 47px; margin-top: 1px; padding: 0 16px; border: 1px solid #dadce0; border-radius: 4px; font-size: 14px; cursor: pointer; outline: 0; }
+.ww-dl-segs:hover { border-color: #80868b; }
+.ww-dl-segs.open, .ww-dl-segs:focus-visible { padding: 0 15px; border: 2px solid #1a73e8; }
+.ww-dl-ph { color: #757575; letter-spacing: .2px; }
+.ww-dl-seg { display: inline-flex; align-items: center; gap: 2px; height: 32px; padding: 0 4px 0 12px; border-radius: 16px; background: #e8eaed; font-size: 13px; color: #3c4043; }
+.ww-dl-seg-x { width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: #5f6368; }
+.ww-dl-seg-x:hover { background: rgba(60,64,67,.12); }
+.ww-dl-seg-x .ic { font-size: 18px; }
+.ww-dl-includes { margin-top: 2px; }
+.ww-dl-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 13px; }
+.ww-dl-cancel { height: 36px; padding: 0 11px; border-radius: 4px; color: #1a73e8; font-size: 14px; font-weight: 500; letter-spacing: .25px; }
+.ww-dl-cancel:hover { background: #f6fafe; }
+.ww-dl-go { height: 36px; padding: 0 25px; border-radius: 4px; background: #1a73e8; color: #fff; font-size: 14px; font-weight: 500; letter-spacing: .25px; }
+.ww-dl-go:hover { background: #1967d2; box-shadow: 0 1px 2px rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15); }

@@ -1,0 +1,45 @@
+/* Text shades matched to the real Ads Manager.
+   The ink colours were already the same (#1c2b33 text, #778085 disabled); what made the clone read darker or lighter was the stroke
+   weight. Each weight below was set by measuring the stroke width of the same words in a real screenshot and in the clone at the
+   same pixel scale (Figtree gains about 0.03 px of stroke per 10 weight units at 16 px). This file is imported last (App.jsx). */
+
+/* table rows and totals: the real figures and names are lighter than the clone had them */
+.fid-rows .grid tbody td { font-weight: 470; }
+.fid-rows .nm-t { font-weight: 470; }
+.fid-rows .grid tfoot td:not(.sticky) { font-weight: 470; }
+.fid-rows .results { font-weight: 450; }
+
+/* grey captions ("Daily", "Total Spent", "Ad set" under Budget): the real grey is #6b757a */
+.fid-rows { --rw-sub: #6b757a; }
+.hd .sub { font-weight: 450; color: #6b757a; }
+
+/* column headers a touch lighter, level tabs a touch heavier */
+.grid thead th { font-weight: 650; }
+.tabs.fid-tabs .tab.fid-tab { font-weight: 680; }
+
+/* quick views lighter; "Updated ..." and "Opportunity score" slightly heavier; toolbar labels slightly heavier */
+.fid-qv .qvb { font-weight: 460; }
+.fid-topbar .upd { font-weight: 440; }
+.opp.fid-opp-btn { font-weight: 440; }
+.toolbar.fid-toolbar .tb.fb:not(.green) { font-weight: 540; }
+
+/* ---- floating Meta AI button (bottom right, above the page edge) and its hover label: sizes from the real page at 1.25x / 1.1247 ----
+   button 70 screenshot px = 62.4 design px, 82 px from the right edge and 84 px from the bottom of the window */
+.fid-aifab { position: fixed; right: 73px; bottom: 75px; z-index: 45; display: flex; align-items: center; justify-content: center; width: 62.4px; height: 62.4px; padding: 0;
+  border: 1px solid #e4e6ea; border-radius: 50%; background: #fff; box-shadow: 0 1.8px 7px rgba(0, 0, 0, .16); cursor: pointer; }
+.fid-aifab:hover { background: #f7f8fa; box-shadow: 0 2.7px 10.7px rgba(0, 0, 0, .22); }
+.fid-aifab:focus-visible { outline: 2px solid #0a78be; outline-offset: 2px; }
+.fid-aifab-dot { position: absolute; top: -1.8px; right: -1.8px; width: 13.3px; height: 13.3px; box-sizing: border-box; border: 1.8px solid #fff; border-radius: 50%; background: #e41e3f; }
+.fid-aifab-tip { position: absolute; right: calc(100% + 15px); top: 50%; transform: translateY(-50%); display: none; align-items: center; height: 44.5px; padding: 0 14.2px; border-radius: 6px;
+  background: #fff; box-shadow: 0 1.8px 10.7px rgba(0, 0, 0, .22); font: 600 16px/20px var(--font); color: #1c2b33; white-space: nowrap; pointer-events: none; }
+.fid-aifab:hover .fid-aifab-tip, .fid-aifab:focus-visible .fid-aifab-tip { display: flex; }
+
+/* ---- "Hide results" / "View results" under "Results from N ads": only while the pointer is on the totals row (real page) ---- */
+.hide-res { display: none; align-items: center; gap: 5.4px; margin-top: 5.5px; padding: 0; border: 0; background: none; font-size: 13.3px; font-weight: 450; color: #1c1e21; cursor: pointer; }
+.hide-res svg { color: #080809; }
+tfoot tr:hover .hide-res, .hide-res:focus-visible { display: flex; }
+.fid-rows .rw-info { --tip-x: -4.4px; --tip-gap: 13.3px; }
+.fid-rows .rw-info[data-tip]:hover::after { padding: 18.5px 17.8px; }
+
+/* the Reach total is underlined with a fine dotted line, like the real totals row (only that one figure) */
+.foot-dotted { text-decoration: underline dotted currentColor; text-decoration-thickness: 1.3px; text-underline-offset: 1.6px; text-decoration-skip-ink: none; } /* dots just under the digits */

@@ -1,0 +1,19 @@
+/* When and where ads showed: page frame (the parts each component draws are in its own css). */
+.ww-page { display: flex; flex-direction: column; min-height: 100%; padding-right: 0; padding-bottom: 0; }
+.ww-page > * { flex: none; }
+
+/* Only the table (toolbar + grid) is a white card; the chart sits on the grey page. */
+.ww-tablecard { background: #fff; border-top: 1px solid #dadce0; box-shadow: 0 1px 2px rgba(60,64,67,.15); position: relative; }
+
+/* Footer: pinned to the bottom when the content is short. */
+.ww-foot { margin-top: auto; padding: 24px 0 10px 8px; font-size: 12px; line-height: 16px; color: #3c4043; }
+.ww-foot p { margin: 0; }
+.ww-foot a { color: #1967d2; text-decoration: underline; }
+.ww-foot .ww-foot-copy { margin-top: 8px; }
+
+/* Expand: the table fills the window; the app bar, rail and side navigation step aside. */
+body.ww-full .topbar, body.ww-full .rail, body.ww-full .navpanel { display: none; }
+.ww-expanded { padding-left: 24px; }
+
+/* Side navigation: this item's long name breaks after "ads", as in the reference. */
+.nav-item.ww-nav-wrap .nav-label { max-width: 150px; white-space: normal; line-height: 20px; }

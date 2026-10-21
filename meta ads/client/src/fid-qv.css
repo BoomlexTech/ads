@@ -1,0 +1,97 @@
+/* Quick-views row + "See more" dropdown, matched to the real Ads Manager (reference captured at 1.125x: 1 design px = 1.125 shot px).
+   Everything is scoped under .fid-qv (the row) / .fid-qv-pop (the dropdown); the global .qvb / .pop rules are not touched. */
+
+/* ---------- the row ---------- */
+.fid-qv { gap: 8.9px; align-items: center; }
+.fid-qv .qvb {
+  height: 46px; padding: 0 13.4px 3.6px; gap: 0;
+  border: 1px solid #cbd2d9; border-radius: 4px; background: #fff; box-shadow: none;
+  font-family: var(--font); font-size: 16px; font-weight: 510; letter-spacing: -.18px; line-height: 1; color: #1c2b33;
+}
+.fid-qv .qvb.on { border-color: #0a78be; box-shadow: none; color: #0a78be; font-weight: 800; letter-spacing: -.25px; }
+.fid-qv .qvb:hover { background-image: linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .1)); }
+/* the selected view ("All ads") turns light blue under the pointer on the real page (not grey) */
+.fid-qv .qvb.on:hover { background-image: none; background-color: #dae8f5; }   /* the grey of the open "+ N more views" button */
+.fid-qv .qvb:focus-visible { outline: 2px solid #0a78be; outline-offset: 1px; }
+.fid-qv-i { display: inline-flex; flex: none; width: 17.78px; height: 17.78px; margin-right: 8.7px; }
+.fid-qv-i .fid-qv-svg { display: block; overflow: visible; }
+.fid-qv-fb { display: inline-flex; width: 17.78px; height: 17.78px; align-items: center; justify-content: center; }
+.fid-qv-l { position: relative; top: .7px; white-space: nowrap; }
+.fid-qv .fid-qv-cv .fid-qv-l, .fid-qv .fid-qv-more .fid-qv-l { top: .9px; }
+.fid-qv .qvx { flex: none; margin-left: 8px; color: #65676b; }
+.fid-qv .qvb.fid-qv-sv { max-width: 230px; }
+.fid-qv-sv .fid-qv-l { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+
+/* text-only buttons on the right (no content shift) */
+.fid-qv .qvb.fid-qv-cv { font-weight: 550; padding: 0 17.2px; border-color: #a7b3bf; background-color: transparent; }
+.fid-qv .qvb.sq { width: 44.4px; padding: 0; justify-content: center; border-color: #a7b3bf; background-color: transparent; }
+.fid-qv .fid-qv-cv + .qvb.sq { margin-left: -4.5px; }
+.fid-qv .qvb.sq .fid-qv-svg { display: block; overflow: visible; }
+
+/* "+ See more": flat until hovered / open, then the grey of the reference */
+.fid-qv .qvb.fid-qv-more { height: 40px; padding: 0 18px 0 13px; border: 0; border-radius: 4px; background-color: transparent; }
+.fid-qv .qvb.fid-qv-more:hover, .fid-qv .qvb.fid-qv-more.open { background-color: transparent; background-image: linear-gradient(rgba(0, 0, 0, .1), rgba(0, 0, 0, .1)); }
+.fid-qv-pl { display: inline-flex; flex: none; margin-right: 9px; }
+.fid-qv-pl .fid-qv-svg { display: block; overflow: visible; }
+
+/* ---------- the dropdown ---------- */
+.pop.fid-qv-pop {
+  top: calc(100% + 11.6px); width: 275px; min-width: 275px; padding: 0; overflow: hidden;
+  border-radius: 4px; background: #fff; box-shadow: 0 1.8px 1.8px rgba(0, 0, 0, .08), 0 7.1px 32px rgba(0, 0, 0, .14);
+  font-family: var(--font); font-size: 16px; color: #1c2b33;
+}
+.fid-qv-panel { position: relative; }
+@keyframes fid-qv-in-fwd { from { transform: translateX(26px); opacity: 0; } to { transform: none; opacity: 1; } }
+@keyframes fid-qv-in-back { from { transform: translateX(-26px); opacity: 0; } to { transform: none; opacity: 1; } }
+.fid-qv-page { outline: 0; }
+.fid-qv-page.fwd { animation: fid-qv-in-fwd .18s ease-out; }
+.fid-qv-page.back { animation: fid-qv-in-back .18s ease-out; }
+@media (prefers-reduced-motion: reduce) { .fid-qv-page.fwd, .fid-qv-page.back { animation: none; } }
+
+.fid-qv-title { height: 34.7px; padding: 13.2px 12.4px 0; font-size: 17.5px; font-weight: 740; line-height: 22px; letter-spacing: -.02px; color: #1c2b33; }
+.fid-qv-list { max-height: 330px; overflow-y: auto; scrollbar-width: thin; padding-bottom: 9.7px; }
+/* no saved views beyond the row: only a little air between the title and the divider (not the global .empty block) */
+.fid-qv-list.fid-qv-list-0 { padding: 0 0 6px; text-align: left; }
+.fid-qv-hr { height: 1px; margin: 0 4px; background: #cbd2d9; }
+.fid-qv-hr.sub { margin-bottom: 4.4px; }
+.fid-qv-navs { padding-top: 3.4px; }
+
+.fid-qv-row, .fid-qv-rb, .fid-qv-nav { font-family: var(--font); font-size: 16px; font-weight: 505; letter-spacing: -.08px; color: #1c2b33; }
+.fid-qv-row { display: flex; align-items: center; height: 40px; padding-right: 17.1px; cursor: pointer; }
+.fid-qv-rb { display: flex; align-items: center; flex: 1 1 auto; min-width: 0; height: 100%; padding: 0 0 0 12.6px; border: 0; background: none; text-align: left; cursor: pointer; }
+.fid-qv-nav { display: flex; align-items: center; justify-content: space-between; width: 100%; height: 48.9px; padding: 0 12.4px 0 12.9px; border: 0; background: none; text-align: left; cursor: pointer; }
+.fid-qv-row:hover, .fid-qv-nav:hover { background: rgba(0, 0, 0, .05); }
+.fid-qv-rb:focus-visible, .fid-qv-nav:focus-visible { outline: 2px solid #0a78be; outline-offset: -2px; }
+.fid-qv-ri { display: inline-flex; flex: none; width: 17.78px; height: 17.78px; margin-right: 9.7px; }
+.fid-qv-rt { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fid-qv-nav .fid-qv-rt { flex: 0 1 auto; }
+.fid-qv-ri .fid-qv-svg, .fid-qv-pen .fid-qv-svg, .fid-qv-nav .fid-qv-svg, .fid-qv-back .fid-qv-svg, .fid-qv-create .fid-qv-svg { display: block; overflow: visible; }
+.fid-qv-pen { display: inline-flex; flex: none; width: 17.78px; height: 17.78px; margin-left: 8px; align-self: center; padding: 0; border: 0; background: none; color: inherit; cursor: pointer; }
+
+.fid-qv-head { display: flex; align-items: center; height: 40px; margin-top: 4px; padding-left: 17.2px; }
+.fid-qv-back { display: inline-flex; flex: none; width: 17.78px; height: 17.78px; margin-right: 13.9px; padding: 0; border: 0; background: none; color: inherit; cursor: pointer; }
+.fid-qv-ht { font-size: 17.5px; font-weight: 740; line-height: 22px; letter-spacing: .14px; white-space: nowrap; }
+.fid-qv-none { padding: 8.3px 40px 14.4px 12.4px; font-size: 16px; font-weight: 510; line-height: 22.2px; letter-spacing: -.14px; }
+
+.fid-qv-create { display: flex; align-items: center; justify-content: center; gap: 8.9px; width: calc(100% - 24.8px); height: 46px; margin: 1px 12.4px 9.2px; padding: 0; border: 1px solid #cbd2d9; border-radius: 4px; background: #fff; font-family: var(--font); font-size: 16px; font-weight: 600; letter-spacing: -.25px; color: #1c2b33; cursor: pointer; }
+.fid-qv-create:hover { background-image: linear-gradient(rgba(0, 0, 0, .05), rgba(0, 0, 0, .05)); }
+.fid-qv-create:focus-visible { outline: 2px solid #0a78be; outline-offset: 1px; }
+
+/* the active view is one that only exists in the dropdown: "+ See more" gets the selected outline (no reference for this state) */
+.fid-qv .qvb.fid-qv-more.fid-qv-sel { padding: 0 17px 0 12px; border: 1px solid #0a78be; color: #0a78be; }
+
+/* ---------- hover card of a quick view (reference: ~1.122 screenshot px per design px) ---------- */
+/* a view button under the pointer (or showing its card) turns light blue; the selected one keeps its own hover look */
+.fid-qv .qvb.fid-qv-v:not(.on):hover, .fid-qv .qvb.fid-qv-v.tipped:not(.on) { background-image: none; background-color: #c3dcf5; }
+/* portalled into #root with fixed design-px coordinates, so no ancestor clips it; it never takes the pointer */
+.fid-qv-tip {
+  position: fixed; z-index: 140; box-sizing: border-box; width: 320px; padding: 17.3px 17.6px 22.1px; pointer-events: none;
+  border-radius: 4.5px; background: #fff; box-shadow: 0 0 1.8px rgba(0, 0, 0, .16), 0 2.7px 14px rgba(0, 0, 0, .14);
+  font-family: var(--font); font-size: 16px; font-weight: 400; line-height: 22.3px; letter-spacing: 0; color: #1c2b33; text-align: left; overflow-wrap: anywhere;
+}
+.fid-qv-tip b { font-weight: 740; letter-spacing: .2px; }
+.fid-qv-tl + .fid-qv-tl { margin-top: 4.45px; }
+/* the glyph + "Recommendations" row sits a little lower than a plain wrapped line (28 instead of 25 screenshot px) */
+.fid-qv-reco { display: inline-flex; align-items: center; height: 22.3px; margin: 2.7px 0 .9px; vertical-align: top; white-space: nowrap; }
+.fid-qv-reco .fid-qv-svg { flex: none; margin: 0 8px 0 -.3px; }
+.fid-qv-dot { display: inline-block; width: 13.4px; height: 13.4px; margin: 0 3.3px; border-radius: 50%; background: #006b4e; vertical-align: -1.6px; }

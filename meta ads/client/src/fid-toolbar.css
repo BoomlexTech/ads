@@ -1,0 +1,108 @@
+/* ======================================================================
+   Toolbar above the table + level tabs (Ads Manager look, measured from the reference screenshots).
+   Design px = screenshot px / 1.125.  Loaded after styles.css, so selectors of equal specificity win.
+   Everything is scoped under .fid-toolbar / .fid-tabs.
+   ====================================================================== */
+
+/* ---------- the row ---------- */
+.fid-toolbar { height: 58px; padding: 0 9px; gap: 9px; background: #fff; overflow: visible; }
+
+/* ---------- buttons ---------- */
+.fid-toolbar .fb {
+  box-sizing: border-box; position: relative; flex: none; display: inline-flex; align-items: center;
+  height: 40px; margin: 0; padding: 0 0 0 11px; gap: 8px;
+  border: 1px solid #a7b3bf; border-radius: 5px; background: #fff;
+  font: 500 16px/1 var(--font); letter-spacing: 0; color: #1c2b33; text-align: left; white-space: nowrap; cursor: pointer;
+}
+.fid-toolbar .fb .fb-l { display: inline-block; }
+.fid-toolbar .fb .fid-ic { flex: none; display: block; position: relative; top: .5px; }
+/* glyphs cropped from the reference (PNG mask painted in currentColor; see fid-toolbar-icons.jsx) */
+.fid-toolbar .fb .fid-gi { width: 20px; height: 20px; }
+.fid-toolbar .fb .fid-gi > i, .fid-toolbar .fb .fid-gi > img { position: absolute; display: block; max-width: none; margin: 0; padding: 0; }
+.fid-toolbar .fb .fid-gi > i { background: currentColor; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; }
+.fid-toolbar .fb .caret { flex: none; margin: 0; }
+.fid-toolbar .fb:hover:not(:disabled), .fid-toolbar .fb.on:not(:disabled) { background: #edf0f2; }
+/* a button whose dropdown is open is a shade darker than a hovered one (refs 23 / 24 / 34: #dce1e5); More is neutral grey (ref 39: #e5e5e5) */
+.fid-toolbar .fb.on:not(:disabled):not(.an):not(.green):not(.more) { background: #dce1e5; }
+.fid-toolbar .fb:disabled { background: #fff; border-color: #cad1d9; color: #778085; cursor: default; }
+/* Analyse keeps its pressed look while the Meta AI panel is open (works without any prop: the shell gets .narrow then) */
+.shell.narrow .fid-toolbar .fb.an:not(:disabled) { background: #edf0f2; }
+.fid-toolbar .fb:focus-visible { outline: 2px solid #0a78be; outline-offset: 1px; }
+
+/* widths (design px) */
+.fid-toolbar .fb.create { min-width: 105.8px; }
+.fid-toolbar .fb.dup, .fid-toolbar .fb.dupm, .fid-toolbar .fb.edit, .fid-toolbar .fb.editm { padding-left: 11.6px; }
+.fid-toolbar .fb.dup { min-width: 127.1px; }
+.fid-toolbar .fb.edit { min-width: 87.1px; }
+.fid-toolbar .fb.an { min-width: 114.7px; }
+.fid-toolbar .fb.ab { min-width: 118.7px; }
+.fid-toolbar .fb.pv { min-width: 116.4px; }
+.fid-toolbar .fb.cols { min-width: 143.1px; padding-right: 15px; }
+.fid-toolbar .fb.bd { min-width: 161.8px; padding-right: 15px; }
+.fid-toolbar .fb.cols .caret, .fid-toolbar .fb.bd .caret { margin-left: auto; }
+.fid-toolbar .fb.ic { min-width: 71.1px; padding-right: 16.5px; }
+.fid-toolbar .fb.ic .caret { margin-left: auto; }
+.fid-toolbar .fb.rep { margin-left: 9px; }               /* the wider gap in front of Reports */
+.fid-toolbar .fb.ico { width: 44.4px; min-width: 44.4px; padding: 0; justify-content: center; }
+.fid-toolbar .fb.ico.create, .fid-toolbar .fb.ico.dup, .fid-toolbar .fb.ico.edit, .fid-toolbar .fb.ico.an, .fid-toolbar .fb.ico.ab, .fid-toolbar .fb.ico.pv { min-width: 44.4px; }
+.fid-toolbar .fb.ico.splitc { gap: 0; }
+
+/* Create */
+.fid-toolbar .fb.green { background: var(--green); border-color: var(--green); color: #fff; }
+.fid-toolbar .fb.green:hover:not(:disabled), .fid-toolbar .fb.green.on:not(:disabled) { background: var(--green-d); }
+
+/* More: borderless */
+.fid-toolbar .fb.more { gap: 11.5px; min-width: 0; padding: 0 17.1px; border-color: transparent; background: transparent; }
+.fid-toolbar .fb.more.ico { width: 44.4px; min-width: 44.4px; padding: 0; }
+.fid-toolbar .fb.more:hover:not(:disabled) { background: #edf0f2; }
+.fid-toolbar .fb.more.on:not(:disabled) { background: #e5e5e5; }   /* the dropdown is open (ref 39) */
+
+/* split buttons: main part + caret part share one outline */
+.fid-split { display: inline-flex; flex: none; }
+.fid-split > .fb { border-radius: 5px 0 0 5px; }
+.fid-split > .pop-anchor > .fb { border-radius: 0 5px 5px 0; border-left-width: 0; }
+.fid-split > .fb.dupm { min-width: 127.1px; }
+.fid-split > .fb.editm { min-width: 87.1px; }
+.fid-split > .fb.ico { width: 44.4px; min-width: 44.4px; }
+.fid-split > .pop-anchor > .fb.splitc { width: 43.6px; min-width: 43.6px; padding: 0; justify-content: center; }
+/* Export keeps a double divider (two bordered halves side by side) */
+.fid-split.exp > .pop-anchor > .fb.expc { border-left-width: 1px; }
+
+/* Charts: the pane is open -> filled glyph, same white button */
+.fid-toolbar .fb.charts.pressed { background: #fff; }
+.fid-toolbar .fb.charts.pressed:hover:not(:disabled) { background: #edf0f2; }
+
+/* separator */
+.fid-sep { flex: none; width: 1px; height: 40px; background: #cbd2d9; }
+
+/* count badge on Breakdown */
+.fid-toolbar .fb .badge { margin: 0 -2px 0 6px; }
+
+/* ======================================================================
+   Level tabs: Campaigns | Ad sets | Ads [N selected x]
+   ====================================================================== */
+.tabsbar .tabs.fid-tabs { flex: 1 1 0; min-width: 0; gap: 9px; align-items: flex-end; }
+.fid-tabs .tab.fid-tab {
+  --tip-x: 13px; --tip-gap: -2.7px;
+  box-sizing: border-box; position: relative; flex: 0 1 calc(19.67% - 6px); min-width: 0; width: auto; height: 44.4px; padding: 0 0 0 14px; gap: 10px;
+  border: 0; border-radius: 10px 10px 0 0; background: #f1f4f7; box-shadow: 0 0 5px rgba(28, 43, 51, .13);
+  font: 650 18px/1 var(--font); letter-spacing: 0; color: #1c2b33; overflow: visible;
+}
+.fid-tabs .tab.fid-tab:hover { background: #ebeff3; }
+.fid-tabs .tab.fid-tab.active { height: 48.9px; padding-left: 15.8px; gap: 10.9px; background: #fff; color: var(--blue); }
+.fid-tabs .tab.fid-tab.active:hover { background: #fff; }
+.fid-tabs .fid-tab .fid-tic { flex: none; display: block; }
+.fid-tabs .tab.fid-tab .fid-tab-l { min-width: 0; flex: 0 1 auto; padding: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fid-tabs .tab.fid-tab:not(.active) .fid-tab-l { margin-top: 1px; }
+/* the label gives way first (ellipsis), the "N selected" pill never collapses */
+.fid-tabs .tab.fid-tab.active .fid-tab-l { flex: 0 1 auto; min-width: 0; }
+
+/* "1 selected  x" pill (selectors are long on purpose: they must beat `.tab span` in styles.css) */
+.fid-tabs .tab.fid-tab .fid-sel { flex: none; overflow: hidden; display: inline-flex; align-items: center; gap: 12px; height: 31px; margin: 0 0 0 10.1px; padding: 0 7.9px 0 8.5px; border-radius: 5px; background: var(--blue); color: #fff; font: 450 16px/1 var(--font); white-space: nowrap; cursor: default; }
+.fid-tabs .tab.fid-tab .fid-sel .fid-sel-t { padding: 0; overflow: hidden; text-overflow: clip; }
+.fid-tabs .tab.fid-tab .fid-sel .fid-sel-x { display: inline-flex; align-items: center; justify-content: center; width: 16.9px; height: 16.9px; margin: 0 0 0 -1.8px; padding: 0; border: 0; border-radius: 3px; background: none; color: #fff; overflow: visible; cursor: pointer; }
+.fid-tabs .tab.fid-tab .fid-sel .fid-sel-x:hover { background: rgba(255, 255, 255, .22); }
+.fid-tabs .tab.fid-tab .fid-sel .fid-sel-x .fid-sel-xi { display: block; width: 100%; height: 100%; background: currentColor; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; }
+
+/* last-resort compression: the caret of a split button is gone, the main part is a plain button again */
+.fid-split.nocaret > .fb { border-radius: 5px; }

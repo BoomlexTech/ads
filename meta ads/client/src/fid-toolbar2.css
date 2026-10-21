@@ -1,0 +1,74 @@
+/* ======================================================================
+   Toolbar dropdowns "Duplicate v" (ref 34) and "More" (ref 39), measured from the reference screenshots.
+   Design px = screenshot px / 1.125.  Everything is scoped under .fid-tbm (the root of the dropdown content);
+   the popover container around it is restyled with .pop:has(> .fid-tbm), no global class is changed.
+   ====================================================================== */
+
+/* ---- the panel ---- */
+.pop:has(> .fid-tbm) {
+  min-width: 0; padding: 0; border-radius: 4px; background: #fff;
+  box-shadow: 0 2.7px 1.8px rgba(0, 0, 0, .08), 0 7.1px 35.6px rgba(0, 0, 0, .12);
+  top: calc(100% + 11.6px);
+}
+.fid-tbm {
+  --tbm-ink: #1c2b33; --tbm-off: #778085; --tbm-key: #6b757a; --tbm-hover: #f2f2f2; --tbm-line: #ccd0d5;
+  box-sizing: border-box; border-radius: 4px; background: #fff;
+  font-family: var(--font); font-size: 15.8px; line-height: 20px; font-weight: 500; letter-spacing: 0; color: var(--tbm-ink); text-align: left;
+}
+.fid-tbm *, .fid-tbm *::before, .fid-tbm *::after { box-sizing: border-box; }
+.fid-tbm svg { flex: none; display: block; }
+.fid-tbm-dup { width: 221.3px; padding: 3.6px 0 4.4px; }
+.fid-tbm-more { display: flex; flex-direction: column; width: 297.8px; padding: 2.7px 0 3.6px; } /* flex: the rows' margins must not collapse */
+
+/* ---- bold section titles ---- */
+.fid-tbm .tbm-title { display: flex; align-items: center; height: 40px; padding: 2px 13.3px 0 12.4px; font-size: 16.6px; font-weight: 700; line-height: 20px; white-space: nowrap; }
+.fid-tbm-more .tbm-title { height: 42.07px; }
+
+/* ---- rows ---- */
+.fid-tbm .tbm-item {
+  display: flex; align-items: center; width: calc(100% - 8.8px); height: 40px; margin: 0 4.4px; padding: 1px 8.2px 0 8.1px;
+  border: 0; border-radius: 4.4px; background: none; font: inherit; letter-spacing: 0; color: inherit; text-align: left; white-space: nowrap; cursor: pointer;
+}
+.fid-tbm-more .tbm-item { margin: 1.04px 4.4px; }
+.fid-tbm .tbm-item:hover:not(:disabled), .fid-tbm .tbm-item.open:not(:disabled) { background: var(--tbm-hover); }
+.fid-tbm .tbm-item:disabled { color: var(--tbm-off); cursor: default; }
+.fid-tbm .tbm-item:focus-visible { outline: 2px solid #0a78be; outline-offset: -2px; }
+.fid-tbm .tbm-lbl { flex: 0 1 auto; min-width: 0; }
+.fid-tbm .tbm-key { flex: none; margin-left: auto; padding-left: 16px; color: var(--tbm-key); font-weight: 500; }
+.fid-tbm .tbm-end { display: inline-flex; align-items: center; flex: none; margin-left: auto; padding-left: 8px; }
+.fid-tbm .tbm-item:disabled .tbm-end { color: var(--tbm-off); }
+.fid-tbm .tbm-ic-ext { margin-right: .9px; position: relative; top: .9px; }
+.fid-tbm .tbm-ic-chev { margin-right: 3.55px; }
+
+/* ---- dividers ---- */
+.fid-tbm .tbm-line { height: .9px; margin: .8px 3.6px 0; background: var(--tbm-line); }
+.fid-tbm-more .tbm-line { margin: 1.49px 3.6px; }
+
+/* ---- the More panel scrolls when it does not fit the window (the native Windows scrollbar look of the other dropdowns) ---- */
+.fid-tbm-more { overflow-x: hidden; overflow-y: auto; }
+.fid-tbm-more > * { flex: none; }
+.fid-tbm-more::-webkit-scrollbar { width: 17px; }
+.fid-tbm-more::-webkit-scrollbar-track { background: #fcfcfc; border-radius: 0 4px 4px 0; }
+.fid-tbm-more::-webkit-scrollbar-thumb { background: #8b8b8b; background-clip: padding-box; border: 3.3px solid transparent; border-radius: 8.5px; min-height: 40px; }
+.fid-tbm-more::-webkit-scrollbar-thumb:hover { background-color: #7a7a7a; }
+.fid-tbm-more::-webkit-scrollbar-button:single-button { display: block; height: 17px; width: 17px; background-color: #fcfcfc; background-repeat: no-repeat; }
+.fid-tbm-more::-webkit-scrollbar-button:single-button:vertical:decrement {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='6.2' viewBox='0 0 9 6.2'%3E%3Cpath d='M4.5 0L9 6.2H0z' fill='%238b8b8b'/%3E%3C/svg%3E");
+  background-position: 4px 7.1px;
+}
+.fid-tbm-more::-webkit-scrollbar-button:single-button:vertical:increment {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='6.2' viewBox='0 0 9 6.2'%3E%3Cpath d='M0 0H9L4.5 6.2z' fill='%238b8b8b'/%3E%3C/svg%3E");
+  background-position: 4px 3.7px;
+}
+
+/* ---- Export > flyout (fixed: a scrolling panel would clip an absolute child) ---- */
+.fid-tbm .tbm-sub { position: relative; }
+.fid-tbm .tbm-fly {
+  position: fixed; z-index: 120;
+  border-radius: 4px; background: #fff; box-shadow: 0 2.7px 1.8px rgba(0, 0, 0, .08), 0 7.1px 35.6px rgba(0, 0, 0, .12);
+}
+
+/* ---- Edit caret dropdown (General / Identity / Creative / Tracking) and its lists: real pitch 47.3 screenshot px = 42.2 design px ---- */
+.fid-tbm-edit { width: 232px; padding: 2.2px 0; }
+.fid-tbm-edit .tbm-item, .fid-tbm-edit-fly .tbm-item { height: 40px; margin: 1.1px 4.4px; padding-left: 9px; }
+.fid-tbm .tbm-fly.fid-tbm-edit-fly { width: 187px; padding: 2.2px 0; border-radius: 4px; }

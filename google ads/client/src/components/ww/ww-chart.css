@@ -1,0 +1,82 @@
+/* "When and where ads showed" chart. Sizes are CSS px (reference screenshot px ÷ 1.25). */
+
+/* The area sits on the grey page background, not in a card; the controls float over the plot's
+   top right so gridlines show through their hover shade. */
+.ww-chart { position: relative; flex: none; }
+.ww-chart svg { display: block; user-select: none; }
+.ww-chart svg text { font-family: var(--font); font-size: 12px; fill: #3c4043; }
+.ww-ch-gridline { stroke: #dadce0; stroke-width: 1; shape-rendering: crispEdges; }
+.ww-hover-line { stroke: #5f6368; stroke-width: 1; stroke-dasharray: 1 3; }
+
+.ww-chart-controls { position: absolute; top: 0; right: 21px; display: flex; align-items: flex-start; }
+
+/* Metric pickers: outlined boxes with the series colour dash. */
+.ww-pick {
+  display: inline-flex; align-items: center; height: 48px; margin-top: 8px; padding: 0 8px 0 19px;
+  border: 1px solid #80868b; border-radius: 4px; background: transparent;
+  font-family: var(--font); font-size: 15px; line-height: 20px; color: #3c4043; white-space: nowrap;
+}
+.ww-pick:hover, .ww-pick[aria-expanded="true"] { border-color: #202124; }
+.ww-pick-dash { flex: none; width: 10px; height: 4px; border-radius: 2px; margin-right: 8px; }
+.ww-pick .ic { font-size: 24px; color: #5f6368; margin-left: 7px; }
+.ww-pick-dd + .ww-pick-dd { margin-left: 16px; }
+
+/* Icon-over-label buttons: Chart type, Expand / Collapse, Adjust. */
+.ww-chart .toolbtn.ww-cbtn {
+  height: 66px; min-width: 0; margin-top: 1px; padding: 0 13px; gap: 2px;
+  color: #5f6368; font-size: 12px; font-weight: 500; line-height: 16px;
+}
+.ww-chart .toolbtn.ww-cbtn .ic { width: 24px; height: 24px; font-size: 24px; display: inline-flex; align-items: center; justify-content: center; }
+/* The reference's expand / collapse corners are drawn smaller than the other icons. */
+.ww-chart .toolbtn.ww-exp .ic { font-size: 20px; }
+.ww-chart .toolbtn.ww-cbtn:hover, .ww-chart .toolbtn.ww-cbtn.active, .ww-chart .toolbtn.ww-cbtn:focus-visible { background: rgba(60, 64, 67, .04); color: #3c4043; }
+.ww-ct-dd { margin-left: 22px; margin-right: 12px; }
+.ww-chart .toolbtn.ww-exp { margin-right: 8px; }
+
+/* Menus: Chart type and Adjust open over their button, the pickers' flush below the box. */
+.dd .popover.ww-pick-pop { top: 100%; }
+.dd .popover.ww-ct-pop { top: 0; left: -2px; }
+.dd .popover.ww-adj-pop { top: 0; }
+.menu.ww-ch-menu { min-width: 0; padding: 8px 0; border-radius: 4px; box-shadow: 0 1px 3px rgba(60, 64, 67, .3), 0 4px 8px 3px rgba(60, 64, 67, .15); }
+.ww-ch-menu .menu-item { height: 48px; min-height: 48px; padding: 0 24px; gap: 8px; font-size: 13px; color: #212121; }
+.ww-ch-menu .menu-item:hover:not(:disabled) { background: #eeeeee; }
+.ww-ch-menu .menu-item:disabled { color: #9e9e9e; }
+.ww-ch-menu .menu-item:disabled .mi-icon { color: #9e9e9e; }
+.ww-ch-menu .mi-sub { font-size: 20px; color: #757575; margin-right: 2px; }
+
+.menu.ww-pick-menu { width: 206px; padding: 0 0 16px; }
+/* A group row whose submenu is open. */
+.ww-pick-menu .menu-item.selected, .ww-pick-menu .menu-item.selected:hover:not(:disabled) { background: #e0e2e2; }
+.ww-pick-menu .submenu { min-width: 180px; padding: 8px 0; }
+.ww-msearch { display: flex; align-items: center; height: 41px; margin-bottom: 8px; padding: 0 8px 0 24px; border-bottom: 1px solid #4285f4; cursor: text; }
+.ww-msearch input { flex: 1; min-width: 0; height: 100%; padding: 0; border: 0; outline: 0; background: transparent; font-family: var(--font); font-size: 13px; color: #212121; }
+.ww-msearch input::placeholder { color: #757575; opacity: 1; }
+.ww-msearch .ic { font-size: 24px; color: #757575; }
+.ww-ch-menu-empty { padding: 14px 24px; font-size: 13px; color: #757575; }
+
+.menu.ww-ct-menu { width: 210px; }
+.ww-ct-menu .menu-item { padding-left: 16px; }
+.ww-ct-menu .mi-icon { font-size: 24px; color: #5f6368; }
+.ww-ct-menu .menu-item.selected, .ww-ct-menu .menu-item.selected:hover:not(:disabled) { background: #e9eef3; }
+
+.menu.ww-adj-menu { width: 101px; }
+.ww-adj-menu .menu-item.selected, .ww-adj-menu .menu-item.selected:hover:not(:disabled) { background: #eef3f7; }
+
+/* Hover card: date, then per metric its name and colour dash + value. */
+.ww-ch-tip {
+  position: absolute; z-index: 10; padding: 14px 16px 15px 15px; background: #fff; border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(60, 64, 67, .3), 0 4px 8px 3px rgba(60, 64, 67, .15);
+  color: #202124; white-space: nowrap; pointer-events: none;
+}
+.ww-ch-tip.pinned { pointer-events: auto; box-shadow: 0 1px 3px rgba(60, 64, 67, .3), 0 4px 8px 3px rgba(60, 64, 67, .15), 0 0 0 2px #8ab4f8; }
+.ww-ch-tip-date { font-size: 14px; line-height: 20px; font-weight: 500; letter-spacing: .25px; }
+.ww-ch-tip-hint { margin-top: 2px; font-size: 11px; line-height: 14px; color: #5f6368; }
+.ww-ch-tip-name { margin-top: 12px; font-size: 14px; line-height: 20px; letter-spacing: .2px; color: #5f6368; }
+.ww-ch-tip-val { display: flex; align-items: center; gap: 10px; margin-top: 2px; font-size: 30px; line-height: 36px; font-variant-numeric: tabular-nums; }
+.ww-ch-tip-dash { flex: none; width: 12px; height: 2px; border-radius: 1px; }
+.ww-ch-tip-edit { cursor: text; border-radius: 2px; }
+.ww-ch-tip-edit:hover { box-shadow: inset 0 0 0 1px #80868b; }
+.ww-ch-tip-input {
+  width: 120px; height: 36px; padding: 0 6px; border: 2px solid #1a73e8; border-radius: 4px; outline: 0;
+  background: #fff; font-family: var(--font); font-size: 24px; color: #202124;
+}

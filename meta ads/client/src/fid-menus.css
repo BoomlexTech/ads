@@ -1,0 +1,109 @@
+/* ===== Toolbar dropdowns (Columns / Breakdown / Reports / Export), matched to the reference screenshots =====
+   All numbers are design px = reference px / 1.125. Everything is scoped under .fid-menus (the root of each dropdown's content);
+   the popover container around it is restyled with .pop:has(> .fid-menus) so no global class changes. */
+
+/* ---- the panel ---- */
+.pop:has(> .fid-menus) {
+  min-width: 0; padding: 0; border-radius: 4px; background: #fff;
+  box-shadow: 0 2.7px 1.8px rgba(0, 0, 0, .08), 0 7.1px 35.6px rgba(0, 0, 0, .12);
+  top: calc(100% + 11.6px);
+}
+.fid-menus {
+  --fm-ink: #1c2b33; --fm-off: #778085; --fm-blue: #0a78be; --fm-sel: #e2eef7; --fm-hover: #f2f3f5; --fm-line: #ced0cf;
+  --fm-pl: 8.9px; --fm-gap: 9.8px; --fm-pr: 11px;
+  box-sizing: border-box; padding: 0 0 4.4px; border-radius: 4px; background: #fff;
+  font-size: 15.8px; line-height: 20px; font-weight: 500; color: var(--fm-ink); text-align: left;
+}
+.fid-menus *, .fid-menus *::before, .fid-menus *::after { box-sizing: border-box; }
+.fid-menus button { font: inherit; color: inherit; letter-spacing: normal; }
+.fid-menus svg { flex: none; }
+.fid-menus .fm-ic { color: #2d3a42; }
+.fid-menus .fm-item:disabled .fm-ic { color: var(--fm-off); }
+.fid-menus-cols { width: 355px; }
+.fid-menus-bd { width: 272px; max-height: 349.3px; overflow-y: auto; overflow-x: hidden; }
+.fid-menus-rep { width: 333.3px; --fm-pl: 18.3px; --fm-gap: 17.3px; --fm-pr: 12.5px; }
+
+/* ---- titles ---- */
+.fid-menus .fm-title { padding: 14.4px 13.3px 11.4px; font-size: 16.6px; font-weight: 700; line-height: 20px; }
+.fid-menus-rep .fm-title { padding-top: 15.3px; padding-bottom: 10.5px; }
+.fid-menus .fm-cap { display: flex; align-items: center; padding: 14.5px 13.3px 0; margin-bottom: 10px; font-size: 16.6px; font-weight: 700; line-height: 20px; }
+.fid-menus .fm-info { display: inline-flex; margin-left: 5.3px; color: #283943; }
+
+/* ---- rows ---- */
+.fid-menus .fm-item, .fid-menus .fm-radio, .fid-menus .fm-check {
+  display: flex; align-items: center; width: calc(100% - 8.9px); margin: 0 4.4px; padding: 0 var(--fm-pr) 0 var(--fm-pl);
+  border: 0; border-radius: 5.3px; background: none; text-align: left; white-space: nowrap; cursor: pointer;
+}
+.fid-menus .fm-item { height: 40px; }
+.fid-menus-rep .fm-item { height: 53.1px; }
+.fid-menus .fm-item:hover:not(:disabled), .fid-menus .fm-radio:hover:not(.on), .fid-menus .fm-check:hover { background: var(--fm-hover); }
+.fid-menus .fm-item:disabled { color: var(--fm-off); cursor: default; }
+.fid-menus .fm-ico { display: inline-flex; align-items: center; justify-content: flex-start; flex: none; width: 17.8px; height: 17.8px; margin-right: var(--fm-gap); }
+.fid-menus .fm-ico .fm-ic { display: block; }
+.fid-menus .fm-end { display: inline-flex; margin-left: auto; padding-left: 8px; }
+.fid-menus-bd .fm-item { --fm-pl: 17.8px; --fm-gap: 8.9px; }
+
+.fid-menus .fm-line { height: 1px; margin: 4.4px 4.4px; background: var(--fm-line); }
+.fid-menus .fm-line.lg { margin-top: 7.5px; }
+.fid-menus-bd .fm-line { margin: 8px 4.4px 0; background: #cbd2d9; }
+.fid-menus-bd .fm-cap { padding-top: 10px; margin-bottom: 8.9px; }
+
+/* radio (Columns presets) */
+.fid-menus .fm-radio { height: 44.4px; }
+.fid-menus .fm-radio.on { background: var(--fm-sel); cursor: default; }
+.fid-menus .fm-radio i { flex: none; width: 26.7px; height: 26.7px; margin-right: var(--fm-gap); border-radius: 50%; border: 1px solid #b7bbc1; background: #fff; }
+.fid-menus .fm-radio.on i { border-color: #3a7396; background: radial-gradient(circle, var(--fm-blue) 0 6.2px, #fff 6.6px); }
+
+/* checkbox rows (Breakdown, Customise columns) */
+.fid-menus .fm-check { height: 40px; }
+.fid-menus .fm-check.tall { height: 46.7px; }
+.fid-menus .fm-box { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 26.7px; height: 26.7px; margin-right: var(--fm-gap); border: 1px solid #cbd2d9; border-radius: 4.4px; background: #fff; }
+.fid-menus .fm-box.on { background: var(--fm-blue); border-color: var(--fm-blue); }
+.fid-menus .fm-empty { padding: 14px 13.3px 10px; color: var(--fm-off); }
+
+/* ---- Breakdown search box ---- */
+.fid-menus .fm-search {
+  display: flex; align-items: center; gap: 8.4px; height: 39.1px; margin: 13.3px 13.3px 0; padding: 0 13.3px;
+  border: 1px solid #cbd2d9; border-radius: 3.2px; background: #fff; color: var(--fm-ink); cursor: text;
+}
+.fid-menus .fm-search:focus-within { border-color: var(--fm-blue); box-shadow: inset 1.78px 0 0 #cee4f2, inset -1.78px 0 0 #cee4f2, inset 0 -1.78px 0 #cee4f2, inset 0 .9px 0 #cee4f2; }
+.fid-menus .fm-search input { flex: 1; min-width: 0; height: 100%; padding: 0; border: 0; outline: 0; background: transparent; font: inherit; font-size: 15.8px; color: var(--fm-ink); }
+.fid-menus .fm-search input::placeholder { color: #6b757a; opacity: 1; }
+.fid-menus-bd .fm-search + .fm-item { margin-top: 9.8px; }
+
+/* ---- pages with a back arrow (Columns: See more / Customise columns), same look as the quick-views pages ---- */
+.fid-menus .fm-head { display: flex; align-items: center; height: 45.8px; padding: 2.2px 13.3px 0 17.8px; }
+.fid-menus .fm-back { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 24px; margin: 0 11.8px 0 0; padding: 0; border: 0; background: none; cursor: pointer; }
+.fid-menus .fm-htitle { font-size: 17.9px; font-weight: 700; line-height: 22px; }
+.fid-menus .fm-list { padding-bottom: 0; }
+.fid-menus .fm-list.fm-scroll { max-height: 360px; overflow-y: auto; margin-bottom: -4.4px; }
+
+/* ---- the scrollbar of the dropdowns: the native Windows look of the reference (17px track, round thumb, arrow buttons) ---- */
+.fid-menus-bd::-webkit-scrollbar, .fid-menus .fm-list.fm-scroll::-webkit-scrollbar { width: 17px; }
+.fid-menus-bd::-webkit-scrollbar-track, .fid-menus .fm-list.fm-scroll::-webkit-scrollbar-track { background: #fcfcfc; }
+.fid-menus-bd::-webkit-scrollbar-thumb, .fid-menus .fm-list.fm-scroll::-webkit-scrollbar-thumb { background: #8b8b8b; background-clip: padding-box; border: 3.3px solid transparent; border-radius: 8.5px; min-height: 40px; }
+.fid-menus-bd::-webkit-scrollbar-thumb:hover, .fid-menus .fm-list.fm-scroll::-webkit-scrollbar-thumb:hover { background-color: #7a7a7a; }
+.fid-menus-bd::-webkit-scrollbar-button:single-button, .fid-menus .fm-list.fm-scroll::-webkit-scrollbar-button:single-button { display: block; height: 17px; width: 17px; background-color: #fcfcfc; background-repeat: no-repeat; }
+.fid-menus-bd::-webkit-scrollbar-button:single-button:vertical:decrement, .fid-menus .fm-list.fm-scroll::-webkit-scrollbar-button:single-button:vertical:decrement {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='6.2' viewBox='0 0 9 6.2'%3E%3Cpath d='M4.5 0L9 6.2H0z' fill='%238b8b8b'/%3E%3C/svg%3E");
+  background-position: 4px 7.1px;
+}
+.fid-menus-bd::-webkit-scrollbar-button:single-button:vertical:increment, .fid-menus .fm-list.fm-scroll::-webkit-scrollbar-button:single-button:vertical:increment {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='6.2' viewBox='0 0 9 6.2'%3E%3Cpath d='M0 0H9L4.5 6.2z' fill='%238b8b8b'/%3E%3C/svg%3E");
+  background-position: 4px 3.7px;
+}
+.fid-menus .fm-title + .fm-item { position: relative; top: -1px; }
+
+/* ---- Export caret dropdown (ref 20): design px = screenshot px / 1.1224 ----
+   Measured in the screenshot: card 312.5 x 326.8 px (radius and shadow as the other dropdowns); row pitch 62.5 px; a separator
+   takes 3.5 px (a 2 px line, #e5e7e9, inset 4 px from the card edges); text baselines 41 / 104 / 166 / 232 / 298 px below the
+   card top; plain rows: text starts 16 px from the card edge; icon rows: icon centred at 34.8 px, text from 65 px.
+   --exp-drop lowers the label (not the icon) so its baseline lands on those rows of the screenshot. */
+.fid-menus-exp { --fm-hover: #f2f2f2; --exp-drop: 1.54px; display: flex; flex-direction: column; width: 278.4px; padding: 3.16px 0 3.34px; } /* flex: the rows' margins must not collapse */
+.fid-menus-exp > * { flex: none; }
+.fid-menus-exp .fm-item { width: calc(100% - 7.12px); height: 53.9px; margin: .89px 3.56px; padding: var(--exp-drop) 10px 0 9.96px; border-radius: 4.4px; font-size: 16px; font-weight: 450; }
+.fid-menus-exp .fm-item:has(> .fm-ico) { padding-left: 16.44px; }
+.fid-menus-exp .fm-item:focus-visible { outline: 2px solid var(--fm-blue); outline-offset: -2px; }
+.fid-menus-exp .fm-ico { justify-content: center; width: 22px; height: 22px; margin: calc(-1 * var(--exp-drop)) 15.58px 0 0; } /* the icon stays centred on the row */
+.fid-menus-exp .fm-ic { color: var(--fm-ink); }
+.fid-menus-exp .fm-line { height: 1.78px; margin: .22px 3.56px 1.12px; background: #e5e7e9; }

@@ -1,0 +1,235 @@
+/* When and where ads showed: the report table (WwGrid.jsx). Sizes are CSS px, the reference's
+   screenshots (taken at 125%) divided by 1.25. */
+.ww-grid { position: relative; background: #fff; }
+
+/* Header (and the summary rows on top), pinned under the toolbar. */
+.ww-headwrap { position: sticky; z-index: 12; background: #fff; }
+.ww-headwrap.ww-stuck { box-shadow: 0 3px 3px -2px rgba(60, 64, 67, .35); }
+.ww-head { overflow: hidden; }
+.ww-body { overflow-x: auto; overflow-y: hidden; scrollbar-width: none; }
+.ww-body::-webkit-scrollbar { display: none; }
+
+.ww-table { table-layout: fixed; border-collapse: separate; border-spacing: 0; font-size: 12px; line-height: 14.4px; color: #3c4043; }
+.ww-table th, .ww-table td { padding: 0 8px; border-right: 1px solid #dadce0; background: #fff; vertical-align: middle; overflow: hidden; text-align: left; overflow-wrap: normal; }
+.ww-table th { height: 47px; border-bottom: 2px solid #dadce0; font-weight: 500; color: #3c4043; cursor: pointer; white-space: normal; transition: border-right-color .2s; }
+.ww-table th:focus-visible { outline: 2px solid #1a73e8; outline-offset: -2px; }
+.ww-table td { height: 41px; border-bottom: 1px solid #dadce0; font-weight: 400; }
+.ww-stuck .ww-head thead th { border-bottom-color: #ecedef; }
+/* Pointer over the header row: its column lines turn blue, the hovered column's right one darker. */
+.ww-grid .ww-head thead tr:hover th { border-right-color: #7aa8e4; }
+.ww-grid .ww-head thead tr:hover th:hover { border-right-color: #1a73e8; }
+
+.ww-table .ww-num { text-align: right; }
+.ww-table .ww-first { padding-left: 16px; }
+.ww-table .ww-last { padding-right: 16px; border-right: 0; }
+.ww-table .ww-check { padding: 0 0 0 20px; border-right: 0; cursor: default; }
+.ww-table .ww-c-bidAdj { padding-right: 48px; }
+.ww-table td.ww-c-bidAdj { position: relative; }
+.ww-table td.ww-nowrap { white-space: nowrap; }
+
+/* Frozen first column(s): scrolled columns slide under them; a soft edge once scrolled. */
+.ww-table .ww-sticky { position: sticky; z-index: 2; }
+.ww-scrolled .ww-edge { border-right-color: #d6d8dc; box-shadow: 2px 0 4px -1px rgba(0, 0, 0, .13); }
+
+/* Hidden header row of the body table (for screen readers). */
+.ww-table thead.ww-sr th { height: 0; padding: 0; border: 0; position: relative; overflow: hidden; }
+
+/* Header labels: up to 3 lines, cut off (no ellipsis) when they don't fit. */
+.ww-th-in { display: flex; align-items: center; min-width: 0; }
+.ww-table th.ww-num .ww-th-in { justify-content: flex-end; }
+/* Room under the text for the recommended columns' dashes, without moving the label. */
+.ww-th-label { flex: 0 1 auto; min-width: 0; max-height: 47.2px; overflow: hidden; padding-bottom: 4px; margin-bottom: -4px; }
+.ww-table th.ww-num .ww-th-label { text-align: right; }
+.ww-table th.ww-sorted .ww-th-label { font-weight: 700; }
+/* Sort arrow: a 16px glyph centred in a 24px slot right before the label. */
+.ww-sort { flex: none; width: 24px; text-align: center; color: #5f6368; font-variation-settings: 'wght' 300; }
+/* Recommended columns: dashes 4 below the baseline (as in the reference, not a text underline). */
+.ww-dash {
+  padding-bottom: 2px;
+  background: linear-gradient(90deg, #6d7072 0 4.4px, transparent 4.4px) 0 100% / 8px 1.6px repeat-x;
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+}
+
+/* Checkboxes (table size). */
+.ww-table input[type=checkbox] {
+  appearance: none; width: 15px; height: 15px; margin: 0; border: 2px solid #757575; border-radius: 2px; background: #fff;
+  display: inline-grid; place-content: center; vertical-align: middle; cursor: pointer;
+}
+.ww-table input[type=checkbox]:checked, .ww-table input[type=checkbox]:indeterminate { background: #1a73e8; border-color: #1a73e8; }
+.ww-table input[type=checkbox]:checked::after { content: ''; width: 3px; height: 7px; border: solid #fff; border-width: 0 2px 2px 0; transform: translateY(-1px) rotate(45deg); }
+.ww-table input[type=checkbox]:indeterminate::after { content: ''; width: 7px; height: 2px; background: #fff; }
+.ww-table input[type=checkbox]:disabled { border-color: #cacaca; cursor: default; }
+.ww-table input[type=checkbox]:focus-visible { outline: 2px solid #1a73e8; outline-offset: 2px; }
+/* Admin: a row's trash can, in the checkbox cell left of the box, shown on row hover (as on the
+   ads tables; these rows are too short to put it under the box). */
+.ww-row-del {
+  position: absolute; top: 50%; left: 0; width: 20px; height: 20px; margin-top: -10px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; color: #5f6368; opacity: 0;
+}
+.ww-row-del .ic { font-size: 16px; }
+.ww-body tr.ww-row:hover .ww-row-del, .ww-row-del:focus-visible { opacity: 1; }
+.ww-row-del:hover { background: #fce8e6; color: #d93025; }
+.ww-row-del:focus-visible { outline: 2px solid #1a73e8; outline-offset: -2px; }
+
+/* Rows. */
+.ww-body tr.ww-row:hover > td { background: #f7f8f8; color: #202124; }
+.ww-txt { overflow: hidden; text-overflow: ellipsis; }
+.ww-link { color: #1a73e8; text-decoration: none; cursor: pointer; }
+.ww-link:hover { text-decoration: underline; }
+.ww-linktext { color: #1a73e8; }
+.ww-table td.ww-editable { cursor: cell; }
+.ww-table td.ww-editable:hover { box-shadow: inset 0 0 0 1px #80868b; }
+.ww-num-input {
+  width: 100%; height: 28px; padding: 0 4px; border: 2px solid #1a73e8; border-radius: 4px; outline: 0;
+  background: #fff; color: #202124; font: inherit; text-align: right;
+}
+.ww-table td:has(> .ww-num-input) { padding-left: 4px; padding-right: 4px; }
+/* Bid adj.: the pencil sits in the 48px slot right of the value, shown on row hover. */
+.ww-pencil {
+  position: absolute; top: 50%; right: 0; width: 24px; height: 24px; margin-top: -12px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; color: #757575; opacity: 0;
+}
+.ww-body tr:hover .ww-pencil, .ww-pencil:focus-visible { opacity: 1; }
+.ww-pencil:hover { background: rgba(60, 64, 67, .08); color: #5f6368; }
+.ww-table .inline-input, .ww-table .inline-select { font-size: 12px; }
+
+/* Total and segment rows: one cell across the frozen block (or the first column). */
+.ww-table tr.ww-total > td { background: #f8f9fa; }
+.ww-table td.ww-lead { padding: 0 8px 0 0; }
+/* Total labels (reference shot 91): the text is cut after 90px (66px after the account total's
+   arrow) and the (?) follows 9px later. The account and campaign type totals may run past the
+   column line; the type totals draw no line there. */
+.ww-table tr.ww-total > td.ww-lead { padding-right: 4px; }
+.ww-tl-text { max-width: 90px; }
+.ww-tl.has-toggle .ww-tl-text { max-width: 66px; }
+.ww-table tr.ww-total.ww-sub > td.ww-lead, .ww-table tr.ww-total.ww-acct > td.ww-lead { padding-right: 0; overflow: visible; }
+.ww-table tr.ww-total.ww-sub > td.ww-lead { border-right-color: transparent; }
+.ww-sub .ww-tl, .ww-acct .ww-tl { width: max-content; }
+.ww-tl { display: flex; align-items: center; justify-content: flex-start; gap: 9px; min-width: 0; }
+.ww-tl.has-toggle { gap: 6px; }
+.ww-tl.has-toggle .ww-help-hit { margin-left: 4px; }
+.ww-tl-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ww-tl-toggle {
+  flex: none; margin-right: auto; width: 24px; height: 24px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center; color: #5f6368;
+}
+.ww-tl-toggle:hover { background: rgba(60, 64, 67, .08); }
+/* The reference's arrow is a bold 16px chevron. */
+.ww-tl-toggle .ic { font-size: 30px; font-variation-settings: 'wght' 500; }
+.ww-help-hit { flex: none; display: inline-flex; color: #727273; cursor: default; }
+.ww-help-hit:hover { color: #5f6368; }
+.ww-seg-label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* Blank cells stay blank (empty table cells elsewhere show a dash). */
+.ww-table td.ww-blank:empty:not([data-ov])::before { content: none; }
+
+/* No rows: a message centred under the header. */
+.ww-empty { padding: 16px; border-bottom: 1px solid #dadce0; background: #fff; text-align: center; font-size: 12px; line-height: 14.4px; color: #3c4043; }
+.ww-empty-text { display: inline-block; max-width: 400px; }
+
+/* Sideways scrollbar: from the frozen edge to the card's edge, pinned to the window bottom. */
+.ww-hscroll { position: sticky; bottom: 0; z-index: 12; height: 10px; overflow-x: auto; overflow-y: hidden; background: #fff; }
+.ww-hscroll.ww-none { visibility: hidden; height: 0; }
+.ww-hscroll::-webkit-scrollbar { height: 10px; }
+.ww-hscroll::-webkit-scrollbar-track { background: #fff; }
+.ww-hscroll::-webkit-scrollbar-thumb { background: #bdc1c6; border-radius: 0; }
+.ww-hscroll::-webkit-scrollbar-thumb:hover { background: #a8acb1; }
+@supports not selector(::-webkit-scrollbar) { .ww-hscroll { scrollbar-color: #bdc1c6 #fff; scrollbar-width: thin; } }
+
+/* Pagination. */
+.ww-pager { display: flex; align-items: center; justify-content: flex-end; height: 48px; background: #fff; font-size: 13px; color: #3c4043; }
+.ww-pg-label { margin-right: 8px; }
+.ww-rows-btn {
+  display: flex; align-items: center; justify-content: space-between; width: 68px; height: 36px; padding: 0 9px 0 12px;
+  border: 1px solid #80868b; border-radius: 4px; color: #3c4043; font-size: 13px;
+}
+.ww-rows-btn .ic { color: #5f6368; }
+.ww-rows-btn.open { border-color: #202124; }
+.ww-pager .popover.ww-rows-pop { top: auto; bottom: 0; left: -4px; right: auto; transform: none; }
+.ww-rows-menu {
+  width: 96px; padding: 16px 0; background: #fff; border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(60, 64, 67, .3), 0 2px 6px 2px rgba(60, 64, 67, .15);
+}
+.ww-rows-item { display: flex; align-items: center; width: 100%; height: 48px; padding: 0 0 0 16px; text-align: left; font-size: 13px; color: #3c4043; }
+.ww-rows-item:hover { background: #e0e2e2; }
+.ww-rows-item.selected { background: #e8f0fe; }
+.ww-range { margin: 0 24px; white-space: nowrap; }
+.ww-pg-btn { width: 48px; height: 48px; flex: none; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: #5f6368; }
+.ww-pg-btn:hover:not(:disabled) { background: rgba(60, 64, 67, .08); }
+.ww-pg-btn:disabled { color: #b5b6b7; }
+
+/* Column help card. */
+.ww-g-tip {
+  position: fixed; z-index: 70; width: 320px; padding: 24px; background: #fff; border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(60, 64, 67, .3), 0 4px 8px 3px rgba(60, 64, 67, .15);
+  color: #3c4043; font-size: 13px; line-height: 20px; font-weight: 400; letter-spacing: 0; text-align: left; white-space: normal; cursor: default;
+}
+.ww-g-tip p { margin: 0 0 20px; }
+.ww-g-tip-body > p:last-child { margin-bottom: 0; }
+.ww-g-tip b { font-weight: 700; }
+.ww-g-tip a { color: #1a73e8; text-decoration: underline; }
+.ww-g-tip-sep { height: 1px; margin: 16px 0; background: #e8eaed; }
+.ww-g-tip .ww-g-tip-note { margin: 0; }
+.ww-g-tip-hide {
+  display: flex; align-items: center; height: 36px; margin-top: 16px; padding: 0 8px; border-radius: 4px;
+  color: #1a73e8; font-size: 14px; font-weight: 500; letter-spacing: .25px;
+}
+.ww-g-tip-hide:hover { background: #f6fafe; }
+
+/* What a total covers (the (?) on a total row). */
+.ww-ttip {
+  position: fixed; z-index: 70; max-width: 400px; padding: 24px; background: #fff; border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(60, 64, 67, .3), 0 4px 8px 3px rgba(60, 64, 67, .15);
+  color: #3c4043; font-size: 14px; line-height: 20px; letter-spacing: .25px; text-align: center;
+}
+
+/* Rows ticked (admin): Duplicate / Remove over the column headers. */
+.ww-selbar {
+  position: absolute; top: 0; right: 0; z-index: 5; height: 47px; display: flex; align-items: center; gap: 8px; padding: 0 8px 0 16px;
+  background: #e8f0fe; border-bottom: 2px solid #dadce0;
+}
+.ww-sel-count { margin-right: 16px; font-size: 14px; font-weight: 500; color: #202124; white-space: nowrap; }
+.ww-sel-btn { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 16px; color: #1a73e8; font-size: 14px; font-weight: 500; white-space: nowrap; }
+.ww-sel-btn:hover { background: rgba(26, 115, 232, .08); }
+.ww-sel-btn.danger { color: #d93025; }
+.ww-sel-btn.danger:hover { background: #fce8e6; }
+/* A button that can't act here: greyed, with the reason in a dark label under it on hover. */
+.ww-sel-btn.off { position: relative; color: #9aa0a6; cursor: default; }
+.ww-sel-btn.off:hover { background: transparent; }
+.ww-sel-btn.off:hover::after, .ww-sel-btn.off:focus-visible::after {
+  content: attr(data-tip); position: absolute; z-index: 70; top: calc(100% + 8px); left: 50%; transform: translateX(-50%);
+  height: 24px; padding: 0 8px; border-radius: 4px; background: #202124; color: #fff;
+  font-size: 12px; font-weight: 500; line-height: 24px; letter-spacing: .25px; white-space: nowrap; pointer-events: none;
+}
+.ww-sel-btn.open { background: rgba(26, 115, 232, .12); }
+.ww-sel-caret { margin: 0 -6px 0 -4px; }
+/* Move to campaign: the campaigns, under its button. */
+.dd.ww-sel-dd { flex: none; }
+.menu.ww-move-menu { max-width: 360px; }
+.ww-move-menu .menu-item { font-size: 13px; color: #212121; }
+.ww-move-menu .mi-label { display: block; overflow: hidden; text-overflow: ellipsis; }
+.ww-sel-close { margin-left: auto; width: 40px; height: 40px; flex: none; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; color: #5f6368; }
+.ww-sel-close:hover { background: rgba(60, 64, 67, .08); }
+
+/* Bid adj. editor (the pencil). */
+.ww-bid-pop {
+  position: fixed; z-index: 70; width: 216px; padding: 16px 16px 8px; background: #fff; border-radius: 4px;
+  box-shadow: 0 1px 2px rgba(60, 64, 67, .3), 0 2px 6px 2px rgba(60, 64, 67, .15);
+}
+.ww-bid-title { margin-bottom: 8px; font-size: 12px; color: #5f6368; }
+.ww-bid-field { display: flex; align-items: center; height: 40px; padding: 0 12px; border: 1px solid #80868b; border-radius: 4px; }
+.ww-bid-field:focus-within { padding: 0 11px; border: 2px solid #1a73e8; }
+.ww-bid-field.error { border-color: #d93025; }
+.ww-bid-field input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; font-size: 14px; color: #202124; text-align: right; }
+.ww-bid-pct { margin-left: 4px; font-size: 14px; color: #5f6368; }
+.ww-bid-hint { min-height: 16px; margin-top: 4px; font-size: 12px; line-height: 16px; color: #5f6368; }
+.ww-bid-hint.error { color: #d93025; }
+.ww-bid-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 8px; }
+.ww-g-tbtn { height: 36px; padding: 0 8px; border-radius: 4px; color: #1a73e8; font-size: 14px; font-weight: 500; letter-spacing: .25px; }
+.ww-g-tbtn:hover { background: #f6fafe; }
+
+/* Expanded (full screen) table: denser rows, as in the reference. */
+.ww-expanded .ww-table th { height: 35px; }
+.ww-expanded .ww-th-label { max-height: 28.8px; }
+.ww-expanded .ww-table td { height: 34px; }
+.ww-expanded .ww-table tr.ww-total > td { height: 29px; }
+.ww-expanded .ww-selbar { height: 35px; }

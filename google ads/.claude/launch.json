@@ -1,0 +1,23 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "adpilot-demo",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "--env-file=.env.local",
+        "server/index.js"
+      ],
+      "port": 3100
+    },
+    {
+      "name": "adpilot-memdb",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "--env-file=C:/Users/priya/AppData/Local/Temp/claude/C--Users-priya-OneDrive-Desktop-google-ads/5146490f-31c5-4ce6-9aa8-3695ebb4fc02/scratchpad/memdb.env",
+        "server/index.js"
+      ],
+      "port": 3301
+    }
+  ]
+}

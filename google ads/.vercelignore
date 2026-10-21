@@ -1,0 +1,7 @@
+.env*
+.claude
+e2e
+test-results
+playwright-report
+dist
+node_modules

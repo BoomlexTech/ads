@@ -1,0 +1,163 @@
+/* Shell additions: Quick help panel, Send feedback dialog and page, top search extras,
+   side-nav items that aren't available yet, and the rail's Create menu. */
+
+/* ---------- Quick help (sits where Ask Advisor does; reuses .advisor / .adv-head / .adv-body) ---------- */
+.qh .adv-head { padding-left: 12px; }
+.qh .adv-head h2 { margin-left: 8px; }
+.qh-search { flex: none; display: flex; align-items: center; gap: 8px; height: 44px; margin: 0 16px 4px 20px; padding: 0 6px 0 12px; border: 1px solid #80868b; border-radius: 22px; color: var(--muted); }
+.qh-search:focus-within { border: 2px solid var(--blue); padding: 0 5px 0 11px; }
+.qh-search > .ic { font-size: 20px; }
+.qh-search input { flex: 1; min-width: 0; height: 100%; border: 0; outline: 0; background: transparent; font-size: 14px; color: var(--text); }
+.qh-search input::placeholder { color: var(--muted); }
+.qh-body p, .qh-body li { font-size: 14px; line-height: 20px; color: var(--text2); }
+.qh-body p { margin: 0 0 12px; }
+.qh-body ul { margin: 0 0 12px; padding-left: 20px; }
+.qh-body li + li { margin-top: 6px; }
+.qh-title { font-size: 12px; font-weight: 500; letter-spacing: .2px; color: var(--muted); margin: 20px 0 6px; }
+.qh-body > .qh-title:first-child, .qh-body > div > .qh-title:first-child { margin-top: 8px; }
+.qh-card { border: 1px solid var(--line); border-radius: 8px; padding: 16px 16px 8px; }
+.qh-card h3, .qh-article h3 { font-size: 16px; font-weight: 500; line-height: 24px; color: var(--text); margin: 0 0 8px; }
+.qh-article h3 { font-size: 20px; line-height: 28px; font-weight: 400; margin-top: 8px; }
+.qh-body .qh-lead { color: var(--text); }
+.qh-more { margin-left: -12px; }
+.qh-link { display: flex; align-items: center; gap: 12px; width: 100%; min-height: 40px; padding: 8px; border-radius: 4px; text-align: left; font-size: 14px; line-height: 20px; color: var(--blue-dark); }
+.qh-link:hover { background: var(--hover); }
+.qh-link:focus-visible { outline: 2px solid var(--blue); outline-offset: -2px; }
+.qh-link .ic { flex: none; font-size: 20px; color: var(--muted); }
+.qh-body .qh-empty { color: var(--muted); }
+.qh-fb { margin: 16px 0 4px -12px; }
+
+/* ---------- Send feedback dialog (reuses the settings dialog: .es-dialog / .es-field) ---------- */
+.es-dialog.fb-dialog { width: min(520px, calc(100vw - 32px)); }
+.fb-text { width: 100%; min-height: 128px; resize: vertical; border: 1px solid #80868b; border-radius: 4px; padding: 10px 12px; font: 14px/20px var(--font); color: var(--text); background: #fff; outline: 0; }
+.fb-text:focus { border: 2px solid var(--blue); padding: 9px 11px; }
+.fb-text::placeholder { color: var(--muted); }
+.fb-count { justify-self: end; }
+.fb-count.low { color: var(--red); }
+.fb-check { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text2); cursor: pointer; }
+.fb-check input { width: 18px; height: 18px; margin: 0; accent-color: var(--blue); cursor: pointer; }
+.fb-error { color: var(--red); font-size: 13px; }
+
+/* Feedback page (admins) */
+.fb-note { margin: 0; padding: 14px 16px; font-size: 13px; color: var(--muted); border-bottom: 1px solid var(--line); }
+.grid.fb-table td { padding-top: 14px; padding-bottom: 14px; vertical-align: top; }
+.grid.fb-table td.fb-when { white-space: nowrap; }
+.grid.fb-table td.fb-msg { min-width: 280px; max-width: 560px; white-space: pre-wrap; overflow-wrap: anywhere; color: var(--text); }
+.grid.fb-table td.fb-page { max-width: 260px; overflow-wrap: anywhere; }
+
+/* ---------- Top search ---------- */
+.kbd-hint.small { flex: none; gap: 4px; margin-left: 8px; }
+.kbd-hint.small kbd { min-width: 18px; height: 20px; padding: 0 4px; border-radius: 4px; font: 500 12px/18px var(--font); color: var(--muted); background: transparent; }
+.sd-item .sd-type { font-size: 22px; }
+.sd-feedback { font-size: 14px; color: var(--blue-dark); padding: 4px 6px; border-radius: 4px; }
+.sd-feedback:hover { background: var(--blue-soft); }
+
+/* ---------- Side nav: items without a page yet ---------- */
+.nav-item.off { color: #80868b; cursor: default; }
+.nav-item.off:hover { border-color: transparent; background: rgba(60,64,67,.04); }
+.nav-item.off .ic { color: #9aa0a6; }
+.nav-item.off .nav-dot { background: #bdc1c6; }
+.nav-item.off .nav-beta { opacity: .6; }
+
+/* ---------- Rail: Create menu (admins); viewers have no Create ---------- */
+.rail .create-circle svg { color: var(--blue); }
+.rail.no-create { padding-top: 16px; }
+.popover.rail-create-pop { top: 8px; left: calc(100% - 4px); z-index: 70; }
+.menu.rail-create-menu { width: 190px; }
+.rail-create-menu .menu-item { height: 60px; padding-left: 24px; font-size: 16px; color: #3c4043; }
+.rail-create-menu .menu-item:hover:not(:disabled), .rail-create-menu .menu-item:focus-visible { background: #e8eaed; outline: none; }
+
+/* ---------- Side panels (Quick help, Ask Advisor) ---------- */
+/* Above the edit page's dialogs and sheets (z-index 90-91) and the expanded asset table (95,
+   earlier in the page), under dialogs, drawers and toasts (99-100). */
+.advisor { position: relative; z-index: 95; }
+
+/* ---------- Top bar: Appearance > Spacing ---------- */
+.popover.appearance-pop { top: calc(100% + 1px); left: 3px; }
+.menu.spacing-menu { width: 208px; }
+.spacing-menu .menu-title { padding: 4px 20px 8px; }
+.spacing-menu .menu-item { height: 60px; padding: 0 20px 0 30px; font-size: 15px; }
+.spacing-menu .sp-ic { flex: none; color: var(--text2); }
+
+/* Spacing levels (data-density on .app-shell). Large is the standard look set in styles.css;
+   Medium, Small and Extra small tighten table rows and headers, the side navigation and cards
+   step by step. Each level sets the sizes; the rules below use them. */
+.app-shell[data-density="medium"] {
+  --dn-ad-row: 124px; --dn-search-row: 92px; --dn-ad-head: 64px; --dn-adcell-top: 6px; --dn-adname-gap: 7px;
+  --dn-ent-row: 42px; --dn-ent-head: 42px; --dn-camp-head: 50px; --dn-status-pad: 7px;
+  --dn-total-row: 38px; --dn-layer-row: 40px; --dn-seg-row: 32px;
+  --dn-hist-row: 46px; --dn-fb-pad: 11px; --dn-asd-row: 50px; --dn-asd-pad: 8px;
+  --dn-nav: 50px; --dn-nav-group: 44px; --dn-nav-child: 44px; --dn-nav-gap: 6px; --dn-rail-pad: 13px;
+  --dn-sc-h: 108px; --dn-sc-top: 14px; --dn-card-pad: 14px; --dn-notif-pad: 16px;
+}
+.app-shell[data-density="small"] {
+  --dn-ad-row: 108px; --dn-search-row: 82px; --dn-ad-head: 56px; --dn-adcell-top: 3px; --dn-adname-gap: 5px;
+  --dn-ent-row: 38px; --dn-ent-head: 40px; --dn-camp-head: 48px; --dn-status-pad: 5px;
+  --dn-total-row: 35px; --dn-layer-row: 36px; --dn-seg-row: 30px;
+  --dn-hist-row: 40px; --dn-fb-pad: 8px; --dn-asd-row: 44px; --dn-asd-pad: 6px;
+  --dn-nav: 44px; --dn-nav-group: 40px; --dn-nav-child: 40px; --dn-nav-gap: 4px; --dn-rail-pad: 10px;
+  --dn-sc-h: 100px; --dn-sc-top: 10px; --dn-card-pad: 12px; --dn-notif-pad: 14px;
+}
+.app-shell[data-density="xsmall"] {
+  --dn-ad-row: 92px; --dn-search-row: 72px; --dn-ad-head: 48px; --dn-adcell-top: 0px; --dn-adname-gap: 3px;
+  --dn-ent-row: 34px; --dn-ent-head: 36px; --dn-camp-head: 44px; --dn-status-pad: 3px;
+  --dn-total-row: 32px; --dn-layer-row: 32px; --dn-seg-row: 28px;
+  --dn-hist-row: 34px; --dn-fb-pad: 5px; --dn-asd-row: 38px; --dn-asd-pad: 4px;
+  --dn-nav: 40px; --dn-nav-group: 36px; --dn-nav-child: 36px; --dn-nav-gap: 2px; --dn-rail-pad: 7px;
+  --dn-sc-h: 92px; --dn-sc-top: 6px; --dn-card-pad: 10px; --dn-notif-pad: 12px;
+}
+
+/* Ads table: rows, header, the ad cell (Extra small also takes a smaller thumbnail). */
+.app-shell[data-density]:not([data-density="large"]) .grid tbody tr:has(.adcell) > td { height: var(--dn-ad-row); }
+.app-shell[data-density]:not([data-density="large"]) .grid tbody tr:has(.adcell.search) > td { height: var(--dn-search-row); }
+.app-shell[data-density]:not([data-density="large"]) .grid-head .grid:not(.ent-grid) th { height: var(--dn-ad-head); }
+.app-shell[data-density]:not([data-density="large"]) .adcell:not(.search) { padding-top: var(--dn-adcell-top); }
+.app-shell[data-density]:not([data-density="large"]) .adcell .ad-name { margin-bottom: var(--dn-adname-gap); }
+.app-shell[data-density="xsmall"] .grid .adcell .thumb { width: 112px; height: 63px; }
+
+/* Campaigns and ad groups tables. */
+.app-shell[data-density]:not([data-density="large"]) .grid.ent-grid tbody td { height: var(--dn-ent-row); }
+.app-shell[data-density]:not([data-density="large"]) .grid.ent-grid td.c-estatus { padding-top: var(--dn-status-pad); padding-bottom: var(--dn-status-pad); }
+.app-shell[data-density]:not([data-density="large"]) .grid-head .grid.ent-grid th { height: var(--dn-ent-head); }
+.app-shell[data-density]:not([data-density="large"]) .page[data-level="campaigns"] .grid-head .grid.ent-grid th { height: var(--dn-camp-head); }
+
+/* Total, layer and segment rows of every table. */
+.app-shell[data-density]:not([data-density="large"]) .grid tbody tr.total-row td { height: var(--dn-total-row); }
+.app-shell[data-density]:not([data-density="large"]) .grid tbody tr.layer-row td { height: var(--dn-layer-row); }
+.app-shell[data-density]:not([data-density="large"]) .grid tbody tr.seg-row td { height: var(--dn-seg-row); }
+
+/* Change history, Feedback and asset details tables. */
+.app-shell[data-density]:not([data-density="large"]) .grid.history tbody td,
+.app-shell[data-density]:not([data-density="large"]) .grid.history thead th { height: var(--dn-hist-row); }
+.app-shell[data-density]:not([data-density="large"]) .grid.fb-table tbody td { padding-top: var(--dn-fb-pad); padding-bottom: var(--dn-fb-pad); }
+.app-shell[data-density]:not([data-density="large"]) .grid.asd-grid tbody td { height: var(--dn-asd-row); padding-top: var(--dn-asd-pad); padding-bottom: var(--dn-asd-pad); }
+
+/* Rail and side navigation. */
+.app-shell[data-density]:not([data-density="large"]) .rail-item { padding-bottom: var(--dn-rail-pad); }
+.app-shell[data-density]:not([data-density="large"]) .nav-item { height: var(--dn-nav); }
+.app-shell[data-density]:not([data-density="large"]) .nav-group .group-head { height: var(--dn-nav-group); }
+.app-shell[data-density]:not([data-density="large"]) .nav-group .nav-item:not(.group-head) { height: var(--dn-nav-child); margin-top: var(--dn-nav-gap); }
+
+/* Cards: scorecards, Quick help and Advisor cards, notifications, the learning card. */
+.app-shell[data-density]:not([data-density="large"]) .scorecard { height: var(--dn-sc-h); padding-top: var(--dn-sc-top); }
+.app-shell[data-density]:not([data-density="large"]) .qh-card { padding: var(--dn-card-pad) 16px calc(var(--dn-card-pad) / 2); }
+.app-shell[data-density]:not([data-density="large"]) .advisor .adv-snap { padding-top: var(--dn-card-pad); padding-bottom: calc(var(--dn-card-pad) / 2); }
+.app-shell[data-density]:not([data-density="large"]) .adv-insight { padding-top: var(--dn-card-pad); padding-bottom: calc(var(--dn-card-pad) / 2); }
+.app-shell[data-density]:not([data-density="large"]) .notif-item { padding-top: var(--dn-notif-pad); padding-bottom: var(--dn-notif-pad); }
+.app-shell[data-density]:not([data-density="large"]) .learn-card .lc-text { padding-top: calc(var(--dn-card-pad) - 6px); padding-bottom: calc(var(--dn-card-pad) - 6px); }
+
+/* ---------- Side nav: "Get the app" card (base look in styles.css: .app-card) ---------- */
+.app-card-head .acard-title { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.app-card-head .acard-title .inline-input { width: 100%; font-size: 12px; }
+.app-card.folded .app-card-head { border-bottom: 1px solid var(--line); }
+.app-card-body { align-items: flex-start; }
+.app-card-body .acard-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 6px; overflow-wrap: anywhere; }
+.app-card-body .acard-text .inline-input { width: 100%; font-size: 12px; }
+.acard-links { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; font-weight: 500; }
+.acard-links a:hover, .acard-learn:hover { text-decoration: underline; }
+.acard-change { color: var(--blue-dark); cursor: pointer; }
+.acard-noqr { width: 64px; height: 64px; flex: none; display: flex; align-items: center; justify-content: center; border: 1px dashed #9aa0a6; border-radius: 4px; color: #9aa0a6; }
+.acard-noqr .ic { font-size: 36px; }
+.acard-add { color: var(--blue-dark); font-weight: 500; font-size: 13px; cursor: pointer; }
+.acard-note { color: var(--muted); }
+.acard-learn { color: var(--blue-dark); font-weight: 500; margin-left: 4px; }

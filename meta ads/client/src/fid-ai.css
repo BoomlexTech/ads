@@ -1,0 +1,57 @@
+/* Meta AI business assistant panel. All measurements are design px (reference screenshot px / 1.125). */
+.ai-pane.fid-ai { flex: none; width: 415px; display: flex; flex-direction: column; position: relative; background: #fff; border-left: 0; z-index: 6; color: #1c2b33; font-size: 16px; }
+
+/* ---- header ---- */
+.fid-ai .fid-ai-head { flex: none; position: relative; height: 60px; }
+.fid-ai .fid-ai-ib { position: absolute; top: 12px; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 18px; background: none; display: flex; align-items: center; justify-content: center; color: #1c2b33; }
+.fid-ai .fid-ai-ib:hover { background: #f0f2f5; }
+.fid-ai .fid-ai-menu { left: 14px; color: #2a3236; }
+.fid-ai .fid-ai-new { left: 50px; color: #646b71; }
+.fid-ai .fid-ai-hist { left: 89.6px; color: #263338; }
+.fid-ai .fid-ai-exp { right: 38.8px; color: #1e2429; }
+.fid-ai .fid-ai-x { right: 3.2px; color: #3d454a; }
+.fid-ai .fid-ai-brand { position: absolute; left: 50%; top: 14.5px; height: 31px; margin-left: -15.5px; display: flex; align-items: center; }
+.fid-ai .fid-ai-beta { margin-left: 5px; height: 19px; padding: 1.6px 7.1px 0 6.4px; border-radius: 9.5px; background: #f3f6fb; display: flex; align-items: center; font-size: 14px; font-weight: 600; color: #1c2b33; letter-spacing: 0; }
+
+/* ---- conversation ---- */
+.fid-ai .fid-ai-body { flex: 1; min-height: 0; overflow-x: hidden; overflow-y: auto; padding: 23px 17.5px 16px 18.2px; scrollbar-width: thin; scrollbar-color: #d4d7db transparent; }
+.fid-ai .fid-ai-note { margin: 0 0 38px; text-align: center; font-size: 14px; line-height: 20px; letter-spacing: -.11px; font-weight: 360; color: #6a6c6f; }
+.fid-ai .fid-ai-me { width: 265.4px; max-width: 100%; margin: 0 0 43px auto; padding: 9px 15.5px; border-radius: 18px; background: #f0f4f7; font-size: 16px; line-height: 22.2px; letter-spacing: -.1px; font-weight: 480; color: #1c2b33; }
+.fid-ai .fid-ai-wait { display: flex; align-items: center; height: 24px; margin: 0 0 22.7px 3.65px; padding-top: 1px; font-size: 16px; font-weight: 710; letter-spacing: -.16px; color: #1c2b33; }
+.fid-ai .fid-ai-wait svg { margin: 1px 12.9px 0 0; }
+
+.fid-ai .fid-ai-card { position: relative; margin: 0 0 12px; padding: 13.1px 16px 13.3px 17.8px; border-radius: 3px; background: #fff; box-shadow: 0 0 4.5px rgba(0, 0, 0, .15); color: #4a525a; font-size: 16px; line-height: 22.2px; letter-spacing: -.1px; }
+.fid-ai .fid-ai-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4.4px; border-radius: 3px 0 0 3px; background: #ced2d8; }
+.fid-ai .fid-ai-ct { display: flex; align-items: flex-start; height: 22.2px; }
+.fid-ai .fid-ai-ct svg { margin: 2.8px 8.7px 0 0; color: #2d3338; }
+.fid-ai .fid-ai-ct b { margin-top: .7px; font-size: 17px; font-weight: 680; letter-spacing: 0; color: #1c2b33; }
+.fid-ai .fid-ai-card p { max-width: 302px; margin: 22.2px 0 0 26.7px; font-weight: 480; }
+.fid-ai .fid-ai-card .fid-ai-ct + p { margin-top: 9.4px; }
+.fid-ai .fid-ai-card a { color: #0a78be; cursor: pointer; }
+.fid-ai .fid-ai-btns { display: flex; gap: 9px; margin: 8.4px 0 0 26.7px; }
+.fid-ai .fid-ai-b { height: 40px; padding: 0 16px; border: 1px solid #adb0b6; border-radius: 6px; background: #fff; font-weight: 600; font-size: 16px; letter-spacing: 0; color: #1c2b33; }
+.fid-ai .fid-ai-b:hover { background: #f3f4f6; }
+.fid-ai .fid-ai-b.pri { border-color: #0b78be; background: #0b78be; color: #fff; }
+.fid-ai .fid-ai-b.pri:hover { background: #08679f; border-color: #08679f; }
+
+/* the answer */
+.fid-ai .fid-ai-ans .fid-ai-wait { margin-bottom: 14px; }
+.fid-ai .fid-ai-ac { margin-bottom: 10px; padding: 11px 16px 13px 17.8px; font-size: 15px; line-height: 21px; }
+.fid-ai .fid-ai-ac b { display: block; font-size: 16px; line-height: 22px; font-weight: 680; letter-spacing: 0; color: #1c2b33; }
+.fid-ai .fid-ai-ac p { margin: 2px 0 0; max-width: none; font-weight: 450; }
+.fid-ai .fid-ai-ac.rec::before { background: #0a78be; }
+.fid-ai .fid-ai-gen { margin: 14px 0 4px; font-size: 13px; line-height: 18px; color: #8a8d91; }
+
+/* ---- composer ---- */
+.fid-ai .fid-ai-foot { flex: none; padding: 12px 18.2px 18.2px; }
+.fid-ai .fid-ai-comp { height: 138px; position: relative; border-radius: 23px; background: #fff; border: 1px solid #f1f1f1; box-shadow: 0 2px 8px rgba(0, 0, 0, .04); }
+.fid-ai .fid-ai-reply { position: absolute; left: 22px; top: 20.3px; font-size: 16px; line-height: 24px; letter-spacing: -.1px; color: #b4b6b9; }
+.fid-ai .fid-ai-tools { position: absolute; left: 13.2px; right: 13.7px; bottom: 13.4px; display: flex; align-items: center; gap: 7.6px; }
+.fid-ai .fid-ai-chip { display: inline-flex; align-items: center; gap: 8px; height: 35.3px; padding: 0 11.8px 0 11px; border-radius: 17.4px; background: #fff; border: 1px solid #f3f3f3; font-size: 16px; letter-spacing: -.1px; color: #8b8d8f; margin: 0; font-family: inherit; line-height: normal; cursor: pointer; }
+.fid-ai .fid-ai-chip:hover { background: #f7f7f8; }
+.fid-ai .fid-ai-chip:focus-visible { outline: 2px solid #0a78be; outline-offset: 1px; }
+.fid-ai .fid-ai-chip svg { color: #9a9ea1; }
+.fid-ai .fid-ai-chip + .fid-ai-chip svg { margin: 0 3.4px 0 -.7px; }
+.fid-ai .fid-ai-send { margin-left: auto; width: 31px; height: 31px; border-radius: 50%; background: #fafafa; display: flex; align-items: center; justify-content: center; color: #d3d6d8; }
+
+.fid-ai .fid-ai-card a:hover { text-decoration: underline; }

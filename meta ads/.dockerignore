@@ -1,0 +1,9 @@
+node_modules
+client/node_modules
+client/dist
+.env
+.git
+server/uploads
+*.log
+srv.log
+README.md

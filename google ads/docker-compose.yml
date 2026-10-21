@@ -1,0 +1,30 @@
+# Coolify: deploy this as a "Docker Compose" resource and set the variables in its UI.
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    environment:
+      PORT: 3000
+      MONGO_URL: mongodb://mongo:27017/adpilot
+      ADMIN_USERNAME: ${ADMIN_USERNAME:?set ADMIN_USERNAME}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?set ADMIN_PASSWORD}
+      VIEWER_USERNAME: ${VIEWER_USERNAME:?set VIEWER_USERNAME}
+      VIEWER_PASSWORD: ${VIEWER_PASSWORD:?set VIEWER_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET:?set JWT_SECRET}
+    expose:
+      - "3000"
+    depends_on:
+      mongo:
+        condition: service_healthy
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+volumes:
+  mongo-data:
